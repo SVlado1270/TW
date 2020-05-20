@@ -1,19 +1,19 @@
-body{
+body {
     background-color: #fff3f3;
 }
 
-.grid-container{
+.grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
 }
 
-.header{
+.header {
     grid-area: hd;
     grid-column: 1/10;
     grid-row: 1/1;
 }
 
-.map-content{
+.map-content {
     grid-area: map;
     grid-column: 1/6;
     grid-row: 2/8;
@@ -22,32 +22,180 @@ body{
     vertical-align: center;
 }
 
-.chart-content{
-    grid-area: charts;
+.dropdown-regiuni {
+    grid-area: regiuni;
     grid-column: 6/10;
-    grid-row: 2/8;
+    grid-row: 2/3;
+    display: flex;
+    justify-content: center;
+}
+
+.dropbtn {
+    background-color: rgb(250, 118, 85);
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    width: 100%;
+    margin: 0;
+    border-radius: 7px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 25em;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: rgb(243, 215, 57);
+    color: rgba(0, 0, 0, 0.678);
+}
+
+.top_somaj {
+    grid-area: topuri;
+    grid-column: 6/10;
+    grid-row: 3/5;
+}
+
+.titlu_comparare{
+    grid-area: titlu;
+    grid-column: 6/10;
+    grid-row: 5/7;
+    text-align: center;
+    height: 60.5px;
+    border-radius: 0;
+    border: 0;
+}
+
+h2{
+    margin-top: 1vh;
+    font-size: 3vh;
+    color: rgba(196, 37, 37, 0.705);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.comparare_judete {
+    grid-area: comparare;
+    grid-column: 6/10;
+    grid-row: 7/8;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 100%;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: rgba(236, 81, 54, 0.877);
+    background-image: none;
+}
+
+/* Remove IE arrow */
+
+select::-ms-expand {
+    display: none;
+}
+
+
+/* Custom Select */
+
+.select {
+    position: relative;
+    display: flex;
+    width: 20em;
+    height: 3em;
+    line-height: 3;
+    background:rgba(248, 118, 58, 0.993);
+    overflow: hidden;
+    border-radius: .25em;
+    margin-left: 5px;
+}
+
+select {
+    flex: 1;
+    padding: 0 .5em;
+    color: whitesmoke;
+    text-indent: 10%;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vh;
+    
+}
+
+/* Arrow */
+
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 1em;
+    background: rgba(236, 97, 33, 0.993);
+    cursor: pointer;
+    pointer-events: none;
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
+    overflow: auto;
+    height: 50px;
+    
+}
+
+
+/* Transition */
+
+.select:hover::after {
+    color: rgba(248, 220, 96, 0.993);
 }
 
 * {
     box-sizing: border-box;
 }
 
-.wrapper{
+.wrapper {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-auto-rows: auto;
-    grid-template-areas:
-        "hd"
-        "map charts";
+    grid-template-areas: "hd" "map regiuni" "map topuri" "map titlu" "map comparare";
     border-radius: 3px;
-    background-color:#fff3f3;
+    background-color: #fff3f3;
     width: 98vw;
     height: 96vh;
     margin: 0 auto;
     grid-gap: 10px;
 }
 
-.wrapper > div {
+.wrapper>div {
     border-radius: 6px;
     background-color: #8c75de46;
     padding: 1em;
@@ -55,7 +203,7 @@ body{
     float: left;
 }
 
-h1{
+h1 {
     font-family: serif;
     text-align: center;
     margin-top: 5vh;
@@ -70,208 +218,219 @@ h1{
     margin-top: 40px;
 }
 
+
 /*adaptare telefon*/
-@media only screen and (min-width: 350px) and (max-width: 700px) and (orientation : landscape) {
+
+@media only screen and (min-width: 350px) and (max-width: 700px) and (orientation: landscape) {
     .tara_prop {
         margin-top: 5vh;
         margin-left: 6vw;
         width: 80%;
     }
-
-    .header{
-      grid-area: hd;
-      grid-column: 2/8;
-      grid-row: 1/1;
+    .header {
+        grid-area: hd;
+        grid-column: 2/8;
+        grid-row: 1/1;
     }
-
-    .map-content{
-     grid-area: map;
-     grid-column: 2/8;
-     grid-row: 2/6;
-     }
- 
-    .chart-content{
-         grid-area: charts;
-         grid-column: 2/8;
-         grid-row: 6/10;
-     }
- 
+    .map-content {
+        grid-area: map;
+        grid-column: 2/8;
+        grid-row: 2/6;
+    }
+    body {
+        overflow-x: hidden;
+    }
     .wrapper {
-     grid-template-areas:
-         "hd"
-         "map" 
-         "charts";
+        grid-template-areas: 
+        "hd" 
+        "map" 
+        "regiuni"
+        "topuri"
+        "titlu"
+        "comparare";
     }
- }
 
- @media only screen and (min-width: 350px) and (max-width: 700px) and (orientation : portrait) {
-  .tara_prop {
-      margin-top: 7vh;
-      margin-left: 6vw;
-      width: 80%;
-  }
+    .dropdown-regiuni {
+        grid-area: regiuni;
+        grid-column: 2/8;
+        grid-row: 6/8;
+        display: flex;
+        justify-content: center;
+    }
 
-  .header{
-    grid-area: hd;
-    grid-column: 2/8;
-    grid-row: 1/1;
-  }
+    .top_somaj {
+        grid-area: topuri;
+        grid-column: 2/8;
+        grid-row: 8/14;
+    }
+    
+    select {
+    flex: 1;
+    padding: 0 .5em;
+    color: whitesmoke;
+    text-indent: 10%;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4vh;
+    }
 
-  .map-content{
-   grid-area: map;
-   grid-column: 2/8;
-   grid-row: 2/6;
-   }
+    .titlu_comparare{
+        grid-area: titlu;
+        grid-column: 2/8;
+        grid-row: 14/16;
+        text-align: center;
+        margin-bottom: 6.8vh;
+        height: 60.5px;
+    }
 
-   .chart-content{
-       grid-area: charts;
-       grid-column: 2/8;
-       grid-row: 6/10;
-   }
+    .comparare_judete {
+        grid-area: comparare;
+        grid-column: 2/8;
+        grid-row: 15/20;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
+    }
+}
 
-  .wrapper {
-   grid-template-areas:
-       "hd"
-       "map" 
-       "charts";
-  }
+/*Adaptare telefoane + iPhone-uri + iPad-uri/tablete*/
+@media only screen and (min-width: 320px) and (max-width: 700px) and (orientation: portrait) {
+    .tara_prop {
+        margin-top: 7vh;
+        margin-left: 6vw;
+        width: 80%;
+    }
+    .header {
+        grid-area: hd;
+        grid-column: 2/8;
+        grid-row: 1/1;
+    }
+    .map-content {
+        grid-area: map;
+        grid-column: 2/8;
+        grid-row: 2/6;
+    }
+    body {
+        overflow-x: hidden;
+    }
+    .wrapper {
+        grid-template-areas: 
+        "hd" 
+        "map" 
+        "regiuni"
+        "topuri"
+        "comparare";
+    }
 
+    .dropdown-regiuni {
+        grid-area: regiuni;
+        grid-column: 2/8;
+        grid-row: 6/8;
+        display: flex;
+        justify-content: center;
+    }
+
+    .top_somaj {
+        grid-area: topuri;
+        grid-column: 2/8;
+        grid-row: 8/14;
+    }
+
+    .titlu_comparare{
+        grid-area: titlu;
+        grid-column: 2/8;
+        grid-row: 14/16;
+        text-align: center;
+        margin-bottom: 6.8vh;
+        height: 60.5px;
+    }
+
+    .comparare_judete {
+        grid-area: comparare;
+        grid-column: 2/8;
+        grid-row: 15/20;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
+    }
+}
+
+/*not supported cross-browser but supported by Chrome*/
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar * {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(204, 67, 67, 0.123) !important;
 }
 
 /*adaptare format mediu PC*/
+
 @media only screen and (min-width: 701px) and (max-width: 1130px) {
-    #harta{
+    #harta {
         margin-top: 10vh;
     }
-  
-    .header{
-      grid-area: hd;
-      grid-column: 2/8;
-      grid-row: 1/1;
+    .header {
+        grid-area: hd;
+        grid-column: 2/8;
+        grid-row: 1/1;
     }
-  
-    .map-content{
-     grid-area: map;
-     grid-column: 2/8;
-     grid-row: 2/6;
-     }
-  
-     .chart-content{
-         grid-area: charts;
-         grid-column: 2/8;
-         grid-row: 6/10;
-     }
-  
+    .map-content {
+        grid-area: map;
+        grid-column: 2/8;
+        grid-row: 2/6;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
     .wrapper {
-     grid-template-areas:
-         "hd"
-         "map" 
-         "charts";
+        grid-template-areas: 
+        "hd" 
+        "map" 
+        "regiuni"
+        "topuri"
+        "comparare";
     }
+
+    .dropdown-regiuni {
+        grid-area: regiuni;
+        grid-column: 2/8;
+        grid-row: 6/8;
+        display: flex;
+        justify-content: center;
+    }
+
+    .top_somaj {
+        grid-area: topuri;
+        grid-column: 2/8;
+        grid-row: 8/14;
+    }
+
   
-  }
-  
-/*adaptare iPhone-uri*/
-@media only screen and (min-width: 320px) and (max-width: 600px) and (orientation : landscape) {
-    .tara_prop {
-        margin-top: 5vh;
-        margin-left: 6vw;
-        width: 80%;
+    .titlu_comparare{
+        grid-area: titlu;
+        grid-column: 2/8;
+        grid-row: 14/16;
+        text-align: center;
+        margin-bottom: 6.9vh;
+        height: 60.5px;
+        overflow: hidden;
     }
 
-    .header{
-      grid-area: hd;
-      grid-column: 2/8;
-      grid-row: 1/1;
+    .comparare_judete {
+        grid-area: comparare;
+        grid-column: 2/8;
+        grid-row: 15/20;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
     }
-
-    .map-content{
-     grid-area: map;
-     grid-column: 2/8;
-     grid-row: 2/6;
-     }
- 
-    .chart-content{
-         grid-area: charts;
-         grid-column: 2/8;
-         grid-row: 6/10;
-     }
- 
-    .wrapper {
-     grid-template-areas:
-         "hd"
-         "map" 
-         "charts";
-    }
- }
-
- @media only screen and (min-width: 320px) and (max-width: 600px) and (orientation : portrait) {
-  .tara_prop {
-      margin-top: 7vh;
-      margin-left: 6vw;
-      width: 80%;
-  }
-
-  .header{
-    grid-area: hd;
-    grid-column: 2/8;
-    grid-row: 1/1;
-  }
-
-  .map-content{
-   grid-area: map;
-   grid-column: 2/8;
-   grid-row: 2/6;
-   }
-
-   .chart-content{
-       grid-area: charts;
-       grid-column: 2/8;
-       grid-row: 6/10;
-   }
-
-  .wrapper {
-   grid-template-areas:
-       "hd"
-       "map" 
-       "charts";
-  }
 }
 
-/*iPhone X*/
-@media only screen and (min-width: 701px) and (max-width: 850px) {
-    #harta{
-        margin-top: 10vh;
-    }
-  
-    .header{
-      grid-area: hd;
-      grid-column: 2/8;
-      grid-row: 1/1;
-    }
-  
-    .map-content{
-     grid-area: map;
-     grid-column: 2/8;
-     grid-row: 2/6;
-     }
-  
-     .chart-content{
-         grid-area: charts;
-         grid-column: 2/8;
-         grid-row: 6/10;
-     }
-  
-    .wrapper {
-     grid-template-areas:
-         "hd"
-         "map" 
-         "charts";
-    }
-  
-  }
-
-button{
+button {
     margin-left: 5vw;
     width: 10vw;
     font-size: 1.8vh;
@@ -279,4 +438,51 @@ button{
     height: auto;
     background-color: rgba(28, 0, 128, 0.705);
     border-color: rgb(212, 196, 212);
+}
+
+#comparare{
+    margin-top: 10vh;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1131px) and (max-width: 1500px){ 
+      
+    .titlu_comparare{
+        grid-area: titlu;
+        grid-column: 6/10;
+        grid-row: 5/6;
+        text-align: center;
+        margin-bottom: -2.43vh;
+        height: 80px;
+        overflow: hidden;
+    }
+
+    .comparare_judete {
+        grid-area: comparare;
+        grid-column: 6/10;
+        grid-row: 6/8;
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
+@media only screen and (min-width: 1501px){ 
+      
+    .titlu_comparare{
+        grid-area: titlu;
+        grid-column: 6/10;
+        grid-row: 5/6;
+        text-align: center;
+        margin-bottom: -2.97vh;
+        height: 80px;
+        overflow: hidden;
+    }
+
+    .comparare_judete {
+        grid-area: comparare;
+        grid-column: 6/10;
+        grid-row: 6/8;
+        display: flex;
+        justify-content: space-evenly;
+    }
 }

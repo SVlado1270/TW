@@ -21,7 +21,7 @@
         </div>
 
         <div class="map-content">
-            <img id="img_reg" src="./Nord-Est.svg" alt="Regiunea NE" class="reg_prop" />
+            <img id="img_reg" src="./Nord-Est.svg" alt="Regiunea NE" class="reg_prop" style="filter: sepia();"/>
         </div>
 
         <script>
@@ -39,6 +39,7 @@
                     <button id="csv" onclick="get_csv_regiune()">DOWNLOAD CSV</button>
                     <button id="xml" onclick="get_xml_regiune()">DOWNLOAD XML</button>
                     <button id="pdf" onclick="get_pdf_regiune()">DOWNLOAD PDF</button>
+                    <h2 style="margin-top: 6vh; margin-left: -5px;">BarChart</h2>
                     <li><object id="bar" width="600px" height="700px" data="">
                             <div class="container">
                                 <canvas id="chart1" width="700px" height="600px" style="margin-left: -75px;"></canvas>
@@ -162,6 +163,7 @@
 
                             </script>
                         </object></li>
+                    <h2>LineChart</h2>
                     <li><object id="line" width="600px" height="700px" data="">
                             <div class="container">
                                 <canvas id="chart2" width="700px" height="600px" style="margin-left: -75px;"></canvas>
@@ -256,6 +258,7 @@
 
                             </script>
                         </object></li>
+                    <h2 style="margin-left: -10px;">RadarChart</h2>
                     <li><object id="radar" width="600px" height="700px" data="">
                             <div class="container">
                                 <canvas id="chart3" width="700px" height="600px" style="margin-left: -75px;"></canvas>

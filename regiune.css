@@ -101,18 +101,6 @@ h2 {
     box-shadow: 0 0 2px 1px rgba(7, 103, 134, 0.5);
 }
 
-
-/*.reg_prop {
-    grid-area: sb;
-    width: 8vw;
-    height: auto;
-    top: 15vh;
-    left: 84vw;
-    border-radius: 1px;
-    padding: 0;
-    margin-top: 30px;
-}*/
-
 .tara_prop {
     grid-area: sb;
     width: 10vw;
@@ -347,4 +335,21 @@ ul {
         margin-left: -10px;
         width: 8vw;
     }
+    #bar{
+        margin-bottom: 100px;
+    }
 }
+
+button{
+    display: inline-block;
+    position: sticky;
+    margin-left: 5vw;
+    width: auto;
+    font-size: 2vh;
+    color: whitesmoke;
+    height: auto;
+    background-color: rgba(28, 0, 128, 0.356);
+    border-color: rgb(212, 196, 212);
+    border-radius: 7px;
+    text-align: center;
+  }

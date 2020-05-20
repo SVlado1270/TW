@@ -185,7 +185,7 @@ ul {
     width: 70vw;
     height: 65vh;
     margin-left: 5px;
-    margin-top: -5px;
+    margin-top: 10px;
     margin-bottom: 18vh;
   }
 
@@ -193,7 +193,8 @@ ul {
     width: 70vw;
     height: 62vh;
     margin-left: 5px;
-    margin-top: -10px;
+    margin-top: 30px;
+    margin-bottom: -30px;
   }
 
   .header{

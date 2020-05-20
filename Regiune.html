@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="regiune.css">
+    <!--<script src="selectieJudete.js"></script>
+    <script src="export_scripts.js"></script>-->
+
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <title>Regiune</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header" style="background-color: #8c7ce92a;">
+            <h1 id="nume_r">Regiunea Nord-Est</h1>
+        </div>
+
+        <div class="map-content">
+            <img id="img_reg" src="./Nord-Est.svg" alt="Regiunea NE" class="reg_prop" />
+        </div>
+
+        <script>
+            var currentLocation = window.location;
+            console.log(currentLocation.pathname.split('/')[2])
+            document.getElementById('img_reg').src = `./${currentLocation.pathname.split('/')[2]}.svg`
+            document.getElementById('nume_r').innerHTML = `Regiunea ${currentLocation.pathname.split('/')[2]}`
+        </script>
+
+        <div class="chart-content">
+            <div id="pie_legend" class="pie_position">
+                <h2 style="margin-top: 1vh; margin-bottom: 5vh;">Vizualizare statistici</h2>
+                <ul>
+                    <!--procentele nu sunt supported de HTML5, desi pt noi vor functiona-->
+                    <button id="csv" onclick="get_csv_regiune()">DOWNLOAD CSV</button>
+                    <button id="xml" onclick="get_xml_regiune()">DOWNLOAD XML</button>
+                    <button id="pdf" onclick="get_pdf_regiune()">DOWNLOAD PDF</button>
+                    <li><object id="bar" width="600px" height="700px" data="">
+                            <div class="container">
+                                <canvas id="chart1" width="700px" height="600px" style="margin-left: -75px;"></canvas>
+                            </div>
+                            <script>
+                                var currentLocation = window.location;
+                                console.log(currentLocation.pathname.split('/'))
+                                regiune = currentLocation.pathname.split('/')[2]
+                                var url = 'https://vvv1270.azurewebsites.net/Regiune/' + regiune;
+
+                                function get_csv_regiune() {
+                                    var url2 = 'https://vvv1270.azurewebsites.net/' + 'Regiune' + '/' + sessionStorage.getItem('regiune');
+                                    console.log(url2)
+                                    var xhttp = new XMLHttpRequest();
+                                    xhttp.onreadystatechange = function () {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            var json = JSON.parse(this.response)
+
+                                            const items = json
+                                            const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+                                            const header = Object.keys(items[0])
+                                            let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                                            csv.unshift(header.join(','))
+                                            csv = csv.join('\r\n')
+
+                                            var hiddenElement = document.createElement('a');
+                                            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+                                            hiddenElement.target = '_blank';
+                                            hiddenElement.download = regiune + '.csv';
+                                            hiddenElement.click();
+
+                                            console.log(csv)
+                                        }
+                                    };
+                                    xhttp.open("GET", url, false);
+                                    xhttp.send();
+                                }
+
+                                console.log(url)
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var temp = []
+                                        var rez = []
+                                        var counter = 1; // cate 10 luni pe judet
+                                        var json = JSON.parse(this.response);
+                                        for (var i = 0; i < json.length; i++) {
+                                            if (counter % 10) {
+                                                temp.push(json[i])
+                                            }
+                                            else {
+                                                temp.push(json[i])
+                                                rez.push(temp)
+                                                temp = []
+                                            }
+                                            counter++
+                                        }
+                                        var total = []
+                                        for (var i = 0; i < rez.length; i++) {
+                                            var temp_result = 0;
+                                            for (var j = 0; j < rez[i].length; j++) {
+                                                temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+
+                                            }
+                                            total.push(temp_result / 10)
+                                        }
+                                        var JUDETE = []
+                                        for (var i = 0; i < rez.length; i++)
+                                            JUDETE.push(rez[i][0].judet)
+
+                                        console.log(JUDETE)
+                                        var ctx = document.getElementById('chart1').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: JUDETE,
+                                                datasets: [{
+                                                    label: 'Medie total someri 2019',
+                                                    data: total,
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                }
+                                                ]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    labels: {
+                                                        generateLabels: function (chart) {
+                                                            labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                            labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            return labels;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                                xhttp.open("GET", url, false);
+                                xhttp.send();
+
+                            </script>
+                        </object></li>
+                    <li><object id="line" width="600px" height="700px" data="">
+                            <div class="container">
+                                <canvas id="chart2" width="700px" height="600px" style="margin-left: -75px;"></canvas>
+                            </div>
+                            <script>
+                                var currentLocation = window.location;
+                                console.log(currentLocation.pathname.split('/'))
+                                regiune = currentLocation.pathname.split('/')[2]
+                                var url = 'https://vvv1270.azurewebsites.net/Regiune/' + regiune;
+                                console.log(url)
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var temp = []
+                                        var rez = []
+                                        var counter = 1; // cate 10 luni pe judet
+                                        var json = JSON.parse(this.response);
+                                        for (var i = 0; i < json.length; i++) {
+                                            if (counter % 10) {
+                                                temp.push(json[i])
+                                            }
+                                            else {
+                                                temp.push(json[i])
+                                                rez.push(temp)
+                                                temp = []
+                                            }
+                                            counter++
+                                        }
+                                        var total = []
+                                        for (var i = 0; i < rez.length; i++) {
+                                            var temp_result = 0;
+                                            for (var j = 0; j < rez[i].length; j++) {
+                                                temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+
+                                            }
+                                            total.push(temp_result / 10)
+                                        }
+                                        var JUDETE = []
+                                        for (var i = 0; i < rez.length; i++)
+                                            JUDETE.push(rez[i][0].judet)
+
+                                        console.log(JUDETE)
+                                        var ctx = document.getElementById('chart2').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: JUDETE,
+                                                datasets: [{
+                                                    label: 'Medie total someri 2019',
+                                                    data: total,
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                }
+                                                ]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    labels: {
+                                                        generateLabels: function (chart) {
+                                                            labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                            labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            return labels;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                                xhttp.open("GET", url, false);
+                                xhttp.send();
+
+                            </script>
+                        </object></li>
+                    <li><object id="radar" width="600px" height="700px" data="">
+                            <div class="container">
+                                <canvas id="chart3" width="700px" height="600px" style="margin-left: -75px;"></canvas>
+                            </div>
+                            <script>
+                                var currentLocation = window.location;
+                                console.log(currentLocation.pathname.split('/'))
+                                regiune = currentLocation.pathname.split('/')[2]
+                                var url = 'https://vvv1270.azurewebsites.net/Regiune/' + regiune;
+                                console.log(url)
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var temp = []
+                                        var rez = []
+                                        var counter = 1; // cate 10 luni pe judet
+                                        var json = JSON.parse(this.response);
+                                        for (var i = 0; i < json.length; i++) {
+                                            if (counter % 10) {
+                                                temp.push(json[i])
+                                            }
+                                            else {
+                                                temp.push(json[i])
+                                                rez.push(temp)
+                                                temp = []
+                                            }
+                                            counter++
+                                        }
+                                        var total = []
+                                        for (var i = 0; i < rez.length; i++) {
+                                            var temp_result = 0;
+                                            for (var j = 0; j < rez[i].length; j++) {
+                                                temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+
+                                            }
+                                            total.push(temp_result / 10)
+                                        }
+                                        var JUDETE = []
+                                        for (var i = 0; i < rez.length; i++)
+                                            JUDETE.push(rez[i][0].judet)
+
+                                        console.log(JUDETE)
+                                        var ctx = document.getElementById('chart3').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'radar',
+                                            data: {
+                                                labels: JUDETE,
+                                                datasets: [{
+                                                    label: 'Medie total someri 2019',
+                                                    data: total,
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                }
+                                                ]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    labels: {
+                                                        generateLabels: function (chart) {
+                                                            labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                            labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            return labels;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                                xhttp.open("GET", url, false);
+                                xhttp.send();
+
+                            </script>
+                        </object></li>
+
+                </ul>
+
+                <script>
+                 //   console.log(sessionStorage.getItem('regiune'))
+                   // document.getElementById('bar').setAttribute('data', "./BarChartRegiune.html");
+                    //document.getElementById('line').setAttribute('data', "./LineChartRegiune.html");
+                    //document.getElementById('radar').setAttribute('data', "./RadarChartRegiune.html");
+                </script>
+            </div>
+        </div>
+        <div class="sidebar" style="background-color: #8c7ce92a;">
+
+            <a href="../index.html">
+                <img id="hover_img" src="MAPABUNA.svg" alt="Romania" class="tara_sb" style="filter: sepia();" />
+            </a>
+
+            <div class="dropdown-menu">
+                <div class="harta_hover">
+                    <img id="hover_img" src="./Reg_Moldova.png" alt="Moldova" class="imagine" />
+
+                    <div class="drop-content" id="listaJud">
+
+                        <a href="Judet.html" id="1" class="jud_comp"></a>
+                        <a href="Judet.html" id="2" class="jud_comp"></a>
+                        <a href="Judet.html" id="3" class="jud_comp"></a>
+                        <a href="Judet.html" id="4" class="jud_comp"></a>
+                        <a href="Judet.html" id="5" class="jud_comp"></a>
+                        <a href="Judet.html" id="6" class="jud_comp"></a>
+                        <a href="Judet.html" id="7" class="jud_comp"></a>
+                        <script>
+
+                            var nordest = ['BACAU', 'BOTOSANI', 'IASI', 'NEAMT', 'SUCEAVA', 'VASLUI']
+                            var sudest = ['BRAILA', 'BUZAU', 'CONSTANTA', 'GALATI', 'TULCEA', 'VRANCEA']
+                            var sud = ['ARGES', 'CALARASI', 'DAMBOVITA', 'GIURGIU', 'IALOMITA', 'PRAHOVA', 'TELEORMAN']
+                            var sudvest = ['DOLJ', 'GORJ', 'MEHEDINTI', 'OLT', 'VALCEA']
+                            var vestul = ['ARAD', 'CARAS', 'HUNEDOARA', 'TIMIS']
+                            var nordvest = ['BIHOR', 'BISTRITA', 'CLUJ', 'MARAMURES', 'SATUMARE', 'SALAJ']
+                            var centrul = ['ALBA', 'BRASOV', 'COVASNA', 'HARGHITA', 'MURES', 'SIBIU']
+                            var ilfbuc = ['BUCURESTI', 'ILFOV']
+
+                            console.log('---')
+
+                            var currentLocation = window.location;
+                            console.log(currentLocation.pathname.split('/')[2])
+                            var curr_region = currentLocation.pathname.split('/')[2]
+
+                            var mapo2 = []
+                            mapo2['Nord-Est'] = nordest
+                            mapo2['Sud-Est'] = sudest
+                            mapo2['Sud-Muntenia'] = sud
+                            mapo2['Sud-Vest-Oltenia'] = sudvest
+                            mapo2['Vest'] = vestul
+                            mapo2['Centru'] = centrul
+                            mapo2['Bucuresti-Ilfov'] = ilfbuc
+                            mapo2['Nord-Vest'] = nordvest
+
+                            for (var i = 0; i < mapo2[curr_region].length; i++) {
+                                console.log(mapo2[curr_region][i])
+                                document.getElementsByClassName("jud_comp")[i].innerHTML = mapo2[curr_region][i]
+                                document.getElementsByClassName("jud_comp")[i].setAttribute('href', `../judet/${mapo2[curr_region][i]}`)
+                            }
+
+                        </script>
+                        <!--<script src="regiuneScript.js"></script>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

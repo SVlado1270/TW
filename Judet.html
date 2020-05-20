@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="Judet.css">
+    <!--<script src="incercare.js"></script>
+    <script src="export_scripts.js"></script>-->
+
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <title>Judet</title>
+</head>
+
+<script>
+    var currentLocation = window.location
+    console.log('----------------------')
+    console.log(currentLocation)
+</script>
+
+<body>
+
+    <div class="wrapper">
+        <a name="top"></a>
+        <div class="header" style="background-color: #8c7ce933;">
+            <h1 id="nume_j"></h1>
+        </div>
+        <div class="map-content">
+
+            <img src="." alt="Iasi" class="jud_prop" style="filter: sepia();">
+            <script>
+
+                var currentLocation = window.location;
+                console.log(currentLocation.pathname.split('/')[2])
+                document.getElementById('nume_j').innerHTML = 'Judetul ' + currentLocation.pathname.split('/')[2]
+
+                if (currentLocation.pathname.split('/')[2] === 'CARAS')
+                    document.getElementById('nume_j').innerHTML = 'Judetul CARAS-SEVERIN'
+                if (currentLocation.pathname.split('/')[2] === 'BISTRITA')
+                    document.getElementById('nume_j').innerHTML = 'Judetul BISTRITA-NASAUD'
+                if (currentLocation.pathname.split('/')[2] === 'SATUMARE')
+                    document.getElementById('nume_j').innerHTML = 'Judetul SATU-MARE'
+                if (currentLocation.pathname.split('/')[2] === 'BUCURESTI')
+                    document.getElementById('nume_j').innerHTML = 'Municipiul Bucuresti'
+
+
+                document.getElementsByClassName("jud_prop")[0].src = `../${currentLocation.pathname.split('/'[2])}.svg`
+            </script>
+
+        </div>
+
+        <div class="chart-content">
+            <div id="pie_legend" class="pie_position">
+                <h2 style="margin-top: 1vh; margin-bottom: 5vh;">Vizualizare statistici</h2>
+                </a>
+                <!--<button type="button" onClick="getJudet()">Click Me!</button>-->
+                <ul>
+                    <!--procentele nu sunt supported de HTML5, desi pt noi vor functiona-->
+                    <li>
+                        <button id="varste" onclick="func_varste()">Varste</button>
+                        <button id="educatie" onclick="func_educatie()">Educatie</button>
+                        <button id="medii" onclick="func_medii()">Medii</button>
+                        <button id="rata" onclick="func_rata()">Rata</button>
+                        <button id="csv" onclick="get_csv_judet()">DOWNLOAD CSV</button>
+                        <button id="xml" onclick="get_xml_judet()">DOWNLOAD XML</button>
+                        <h2 style="margin-top: 7vh;">BarChart</h2>
+                        <object id="bar" width="600px" height="700px" data="">
+                            <div class="container">
+                                <canvas id="chart" width="100%"></canvas>
+                            </div>
+                            <script>
+
+
+                                var currentLocation = window.location;
+                                console.log(currentLocation.pathname.split('/'))
+                                judet = currentLocation.pathname.split('/')[2]
+
+                                //aaa
+
+                                function getColoane(url) {
+                                    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`) // i just need to parse the args
+                                    var coloane = parsedUrl.searchParams.get('coloane')
+                                    if (coloane) {
+                                        return coloane.split(',')
+                                    }
+                                    return []
+                                }
+
+                                function getLuni(url) {
+                                    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`)
+                                    var luni = parsedUrl.searchParams.get('luni')
+                                    if (luni) {
+                                        return luni.split('&')
+                                    }
+                                    return []
+                                }
+
+                                function createLabel(luna) {
+                                    var result = []
+                                    for (temp of luna) {
+                                        if (temp == 1)
+                                            result.push('ianuarie')
+                                        if (temp == 2)
+                                            result.push('februarie')
+                                        if (temp == 3)
+                                            result.push('martie')
+                                        if (temp == 4)
+                                            result.push('aprilie')
+                                        if (temp == 5)
+                                            result.push('mai')
+                                        if (temp == 6)
+                                            result.push('iunie')
+                                        if (temp == 7)
+                                            result.push('iulie')
+                                        if (temp == 9)
+                                            result.push('septembrie')
+                                        if (temp == 10)
+                                            result.push('octombrie')
+                                        if (temp == 11)
+                                            result.push('noiembrie')
+                                        if (temp == 12)
+                                            result.push('decembrie')
+                                    }
+                                    return result
+                                }
+
+                                console.log(currentLocation.search)
+                                var temp = currentLocation.search.split('&')
+                                var criteriu2 = temp[0].split('?')[1]
+                                var coloane2 = getColoane(currentLocation.href)
+                                var luni = getLuni(currentLocation.href)
+
+                                function func_varste() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?varste'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_medii() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?medii'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_rata() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?rata'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_educatie() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?educatie'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+
+
+                                function get_csv_judet() {
+                                    var url2 = 'http://localhost:9000/api/judet/' + judet
+                                    console.log(url2)
+                                    var xhttp = new XMLHttpRequest();
+                                    xhttp.onreadystatechange = function () {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            var json = JSON.parse(this.response)
+
+                                            const items = json
+                                            const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+                                            const header = Object.keys(items[0])
+                                            let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+                                            csv.unshift(header.join(','))
+                                            csv = csv.join('\r\n')
+
+                                            var hiddenElement = document.createElement('a');
+                                            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+                                            hiddenElement.target = '_blank';
+                                            hiddenElement.download = judet + '_' + criteriu + '.csv';
+                                            hiddenElement.click();
+
+                                            console.log(csv)
+                                        }
+                                    };
+                                    xhttp.open("GET", url, false);
+                                    xhttp.send();
+                                }
+                                //aaa
+
+                                if (criteriu2)
+                                    criteriu = criteriu2
+                                else
+                                    criteriu = 'varste'
+
+                                var url = 'http://localhost:9000/api/judet/' + judet + '?' + criteriu
+
+                                if (coloane2) {
+                                    url += '&coloane='
+                                    for (var i = 0; i < coloane2.length; i++)
+                                        if (i < coloane2.length - 1)
+                                            url += coloane2[i] + ','
+                                        else
+                                            url += coloane2[i]
+                                }
+
+                                if (luni) {
+                                    url += '&luni='
+                                    for (var i = 0; i < luni.length; i++)
+                                        if (i < luni.length - 1)
+                                            url += luni[i] + ','
+                                        else
+                                            url += luni[i]
+                                }
+                                var LUNI = []
+                                var coloane = []
+                                if (luni.length) {
+                                    LUNI = createLabel(luni[0].split(','))
+                                }
+                                else
+                                    LUNI = ['Aprilie', 'Mai', 'Iunie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Ianuarie', 'Decembrie', 'Martie']
+
+                                if (coloane2.length) {
+                                    coloane = coloane2
+                                }
+                                else {
+                                    if (criteriu === 'varste')
+                                        coloane = ['TOTAL', 'Sub_25_ani', 'ani_25_29', 'ani_30_39', 'ani_40_49', 'ani_50_55', 'peste_55_ani']
+                                    if (criteriu === 'medii')
+                                        coloane = ['NUMAR_TOTAL_SOMERI', 'NUMAR_TOTAL_SOMERI_FEMEI', 'NUMAR_TOTAL_SOMERI_BARBATI', 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_URBAN', 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN', 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN', 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL', 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL', 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL']
+                                    if (criteriu === 'rata')
+                                        coloane = ['Numar_total_someri', 'Numar_total_someri_femei', 'Numar_total_someri_barbati', 'Numar_someri_indemnizati', 'Numar_someri_neindemnizati', 'Rata_somajului', 'Rata_somajului_Feminina', 'Rata_somajului_Masculina']
+                                    if (criteriu === 'educatie')
+                                        coloane = ['Total_someri_din_care', 'fara_studii', 'invatamant_primar', 'invatamant_gimnazial', 'invatamant_liceal', 'invatamant_postliceal', 'invatamant_profesional/arte_si_meserii', 'invatamant_universitar']
+                                }
+
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var json = JSON.parse(this.response);
+                                        console.log(json)
+                                        var array1 = []
+                                        var array2 = []
+                                        var array3 = []
+                                        var array4 = []
+                                        var array5 = []
+                                        var array6 = []
+                                        var array7 = []
+                                        var array8 = []
+                                        var array9 = []
+                                        if (criteriu === 'varste') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].TOTAL)
+                                                array2.push(json[i].Sub_25_ani)
+                                                array3.push(json[i].ani_25_29)
+                                                array4.push(json[i].ani_30_39)
+                                                array4.push(json[i].ani_40_49)
+                                                array6.push(json[i].ani_50_55)
+                                                array7.push(json[i].peste_55_ani)
+                                            }
+                                        }
+                                        else if (criteriu === 'medii') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].NUMAR_TOTAL_SOMERI)
+                                                array2.push(json[i].NUMAR_TOTAL_SOMERI_FEMEI)
+                                                array3.push(json[i].NUMAR_TOTAL_SOMERI_BARBATI)
+                                                array4.push(json[i].NUMAR_TOTAL_SOMERI_DIN_MEDIUL_URBAN)
+                                                array5.push(json[i].NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN)
+                                                array6.push(json[i].NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN)
+                                                array7.push(json[i].NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL)
+                                                array8.push(json[i].NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL)
+                                                array9.push(json[i].NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL)
+                                            }
+                                        }
+                                        else if (criteriu === 'rata') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].Numar_total_someri)
+                                                array2.push(json[i].Numar_total_someri_femei)
+                                                array3.push(json[i].Numar_total_someri_barbati)
+                                                array4.push(json[i].Numar_someri_indemnizati)
+                                                array5.push(json[i].Numar_someri_neindemnizati)
+                                                array6.push(json[i].Rata_somajului)
+                                                array7.push(json[i].Rata_somajului_Feminina)
+                                                array8.push(json[i].Rata_somajului_Masculina)
+                                            }
+                                        }
+                                        else if (criteriu === 'educatie') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].Total_someri_din_care)
+                                                array2.push(json[i].fara_studii)
+                                                array3.push(json[i].invatamant_primar)
+                                                array4.push(json[i].invatamant_gimnazial)
+                                                array5.push(json[i].invatamant_liceal)
+                                                array6.push(json[i].invatamant_posticeal)
+                                                array7.push(json[i]['invatamant_profesional/arte_si_meserii'])
+                                                array8.push(json[i].invatamant_universitar)
+                                            }
+                                        }
+
+                                        function get_data(a, b, c, d, e, f, g, h, nume_coloana, crit) {
+
+                                            if (crit === 'varste') {
+                                                if (nume_coloana === 'TOTAL')
+                                                    return a;
+                                                if (nume_coloana === 'Sub_25_ani')
+                                                    return b;
+                                                if (nume_coloana === 'ani_25_29')
+                                                    return c;
+                                                if (nume_coloana === 'ani_30_39')
+                                                    return d;
+                                                if (nume_coloana === 'ani_40_49')
+                                                    return e;
+                                                if (nume_coloana === 'ani_50_55')
+                                                    return f;
+                                                if (nume_coloana === 'peste_55_ani')
+                                                    return g;
+                                            }
+                                            else if (crit === 'medii') {
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI')
+                                                    return a;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_FEMEI')
+                                                    return b;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_BARBATI')
+                                                    return c;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_UBRAN')
+                                                    return d;
+                                                if (nume_coloana === 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN')
+                                                    return e;
+                                                if (nume_coloana === 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN')
+                                                    return f;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL')
+                                                    return g;
+                                                if (nume_coloana === 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL')
+                                                    return h;
+                                                if (nume_coloana === 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL')
+                                                    return i;
+                                            }
+                                            else if (crit === 'rata') {
+                                                if (nume_coloana === 'Numar_total_someri')
+                                                    return a;
+                                                if (nume_coloana === 'Numar_total_someri_femei')
+                                                    return b;
+                                                if (nume_coloana === 'Numar_total_someri_barbati')
+                                                    return c;
+                                                if (nume_coloana === 'Numar_someri_indemnizati')
+                                                    return d;
+                                                if (nume_coloana === 'Numar_someri_neindemnizati')
+                                                    return e;
+                                                if (nume_coloana === 'Numar_someri_neindemnizati')
+                                                    return f;
+                                                if (nume_coloana === 'Rata_somajului')
+                                                    return g;
+                                                if (nume_coloana === 'Rata_somajului_Feminina')
+                                                    return h;
+                                                if (nume_coloana === 'Rata_somajului_Masculina')
+                                                    return i;
+                                            }
+                                            else if (crit === 'educatie') {
+                                                if (nume_coloana === 'Total_someri_din_care')
+                                                    return a;
+                                                if (nume_coloana === 'fara_studii')
+                                                    return b;
+                                                if (nume_coloana === 'invatamant_primar')
+                                                    return c;
+                                                if (nume_coloana === 'invatamant_gimnazial')
+                                                    return d;
+                                                if (nume_coloana === 'invatamant_liceal')
+                                                    return e;
+                                                if (nume_coloana === 'invatamant_postliceal')
+                                                    return f;
+                                                if (nume_coloana === 'invatamant_profesional/arte_si_meserii')
+                                                    return g;
+                                                if (nume_coloana === 'invatamant_universitar')
+                                                    return h;
+                                            }
+                                        }
+
+
+                                        var ctx = document.getElementById('chart').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: LUNI,
+                                                datasets: [{
+                                                    label: coloane[0],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[0], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)'
+
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+
+                                                {
+                                                    label: coloane[1],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[1], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[2],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[2], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[3],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[3], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[4],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[4], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[5],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[5], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[6],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[6], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[7],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[7], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[8],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[8], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                }
+
+
+                                                ]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    labels: {
+                                                        generateLabels: function (chart) {
+                                                            labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                            if (coloane[0]) {
+                                                                labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                                labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            }
+
+                                                            if (coloane[1]) {
+                                                                labels[1].fillStyle = 'rgba(54, 162, 235, 0.2)';
+                                                                labels[1].strokeStyle = 'rgba(54, 162, 235, 0.2)';
+                                                            }
+
+                                                            if (coloane[2]) {
+                                                                labels[2].fillStyle = 'rgba(255, 206, 86, 0.2)';
+                                                                labels[2].strokeStyle = 'rgba(255, 206, 86, 0.2)';
+                                                            }
+
+                                                            if (coloane[3]) {
+                                                                labels[3].fillStyle = 'rgba(75, 192, 192, 0.2)';
+                                                                labels[3].strokeStyle = 'rgba(75, 192, 192, 0.2)';
+                                                            }
+                                                            if (coloane[4]) {
+                                                                labels[4].fillStyle = 'rgba(153, 102, 255, 0.2)';
+                                                                labels[4].strokeStyle = 'rgba(153, 102, 255, 0.2)';
+                                                            }
+
+                                                            if (coloane[5]) {
+                                                                labels[5].fillStyle = 'rgba(255, 159, 64, 0.2)';
+                                                                labels[5].strokeStyle = 'rgba(255, 159, 64, 0.2)';
+                                                            }
+
+                                                            if (coloane[6]) {
+                                                                labels[6].fillStyle = 'rgba(123, 98, 50, 0.2)';
+                                                                labels[6].strokeStyle = 'rgba(123, 98, 50, 0.2)';
+                                                            }
+
+                                                            if (coloane[7]) {
+                                                                labels[7].fillStyle = 'rgba(0,0,139, 0.2)';
+                                                                labels[7].strokeStyle = 'rgba(0,0,139, 0.2)';
+                                                            }
+
+                                                            if (coloane[8]) {
+                                                                labels[8].fillStyle = 'rgba(128,0,128, 0.2)';
+                                                                labels[8].strokeStyle = 'rgba(128,0,128, 0.2)';
+                                                            }
+
+                                                            return labels;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                                xhttp.open("GET", url, false);
+                                xhttp.send();
+
+                            </script>
+                        </object>
+                    </li>
+                    <li>
+                        <!--<button id=" varste" onclick="set_varste()">Varste</button>
+                        <button id="educatie" onclick="set_educatie()">Educatie</button>
+                        <button id="medii" onclick="set_medii()">Medii</button>
+                        <button id="rata" onclick="set_rata()">Rata</button>-->
+                        <h2 style="margin-top: 7vh;">LineChart</h2>
+                        <object id="line" width="600px" height="700px" data="">
+                            <div class="container">
+                                <canvas id="chart2" width="100%"></canvas>
+                            </div>
+                            <script>
+
+
+
+                                var currentLocation = window.location;
+                                console.log(currentLocation.pathname.split('/'))
+                                judet = currentLocation.pathname.split('/')[2]
+
+                                //aaa
+
+                                function getColoane(url) {
+                                    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`) // i just need to parse the args
+                                    var coloane = parsedUrl.searchParams.get('coloane')
+                                    if (coloane) {
+                                        return coloane.split(',')
+                                    }
+                                    return []
+                                }
+
+                                function getLuni(url) {
+                                    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`)
+                                    var luni = parsedUrl.searchParams.get('luni')
+                                    if (luni) {
+                                        return luni.split('&')
+                                    }
+                                    return []
+                                }
+
+                                function createLabel(luna) {
+                                    var result = []
+                                    for (temp of luna) {
+                                        if (temp == 1)
+                                            result.push('ianuarie')
+                                        if (temp == 2)
+                                            result.push('februarie')
+                                        if (temp == 3)
+                                            result.push('martie')
+                                        if (temp == 4)
+                                            result.push('aprilie')
+                                        if (temp == 5)
+                                            result.push('mai')
+                                        if (temp == 6)
+                                            result.push('iunie')
+                                        if (temp == 7)
+                                            result.push('iulie')
+                                        if (temp == 9)
+                                            result.push('septembrie')
+                                        if (temp == 10)
+                                            result.push('octombrie')
+                                        if (temp == 11)
+                                            result.push('noiembrie')
+                                        if (temp == 12)
+                                            result.push('decembrie')
+                                    }
+                                    return result
+                                }
+
+                                console.log(currentLocation.search)
+                                var temp = currentLocation.search.split('&')
+                                var criteriu2 = temp[0].split('?')[1]
+                                var coloane2 = getColoane(currentLocation.href)
+                                var luni = getLuni(currentLocation.href)
+
+                                function func_varste() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?varste'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_medii() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?medii'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_rata() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?rata'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_educatie() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?educatie'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+
+                                //aaa
+
+                                if (criteriu2)
+                                    criteriu = criteriu2
+                                else
+                                    criteriu = 'varste'
+
+                                var url = 'http://localhost:9000/api/judet/' + judet + '?' + criteriu
+
+                                if (coloane2) {
+                                    url += '&coloane='
+                                    for (var i = 0; i < coloane2.length; i++)
+                                        if (i < coloane2.length - 1)
+                                            url += coloane2[i] + ','
+                                        else
+                                            url += coloane2[i]
+                                }
+
+                                if (luni) {
+                                    url += '&luni='
+                                    for (var i = 0; i < luni.length; i++)
+                                        if (i < luni.length - 1)
+                                            url += luni[i] + ','
+                                        else
+                                            url += luni[i]
+                                }
+                                var LUNI = []
+                                var coloane = []
+                                if (luni.length) {
+                                    LUNI = createLabel(luni[0].split(','))
+                                }
+                                else
+                                    LUNI = ['Aprilie', 'Mai', 'Iunie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Ianuarie', 'Decembrie', 'Martie']
+
+                                if (coloane2.length) {
+                                    coloane = coloane2
+                                }
+                                else {
+                                    if (criteriu === 'varste')
+                                        coloane = ['TOTAL', 'Sub_25_ani', 'ani_25_29', 'ani_30_39', 'ani_40_49', 'ani_50_55', 'peste_55_ani']
+                                    if (criteriu === 'medii')
+                                        coloane = ['NUMAR_TOTAL_SOMERI', 'NUMAR_TOTAL_SOMERI_FEMEI', 'NUMAR_TOTAL_SOMERI_BARBATI', 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_URBAN', 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN', 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN', 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL', 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL', 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL']
+                                    if (criteriu === 'rata')
+                                        coloane = ['Numar_total_someri', 'Numar_total_someri_femei', 'Numar_total_someri_barbati', 'Numar_someri_indemnizati', 'Numar_someri_neindemnizati', 'Rata_somajului', 'Rata_somajului_Feminina', 'Rata_somajului_Masculina']
+                                    if (criteriu === 'educatie')
+                                        coloane = ['Total_someri_din_care', 'fara_studii', 'invatamant_primar', 'invatamant_gimnazial', 'invatamant_liceal', 'invatamant_postliceal', 'invatamant_profesional/arte_si_meserii', 'invatamant_universitar']
+                                }
+
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var json = JSON.parse(this.response);
+                                        console.log(json)
+                                        var array1 = []
+                                        var array2 = []
+                                        var array3 = []
+                                        var array4 = []
+                                        var array5 = []
+                                        var array6 = []
+                                        var array7 = []
+                                        var array8 = []
+                                        var array9 = []
+                                        if (criteriu === 'varste') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].TOTAL)
+                                                array2.push(json[i].Sub_25_ani)
+                                                array3.push(json[i].ani_25_29)
+                                                array4.push(json[i].ani_30_39)
+                                                array4.push(json[i].ani_40_49)
+                                                array6.push(json[i].ani_50_55)
+                                                array7.push(json[i].peste_55_ani)
+                                            }
+                                        }
+                                        else if (criteriu === 'medii') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].NUMAR_TOTAL_SOMERI)
+                                                array2.push(json[i].NUMAR_TOTAL_SOMERI_FEMEI)
+                                                array3.push(json[i].NUMAR_TOTAL_SOMERI_BARBATI)
+                                                array4.push(json[i].NUMAR_TOTAL_SOMERI_DIN_MEDIUL_URBAN)
+                                                array5.push(json[i].NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN)
+                                                array6.push(json[i].NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN)
+                                                array7.push(json[i].NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL)
+                                                array8.push(json[i].NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL)
+                                                array9.push(json[i].NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL)
+                                            }
+                                        }
+                                        else if (criteriu === 'rata') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].Numar_total_someri)
+                                                array2.push(json[i].Numar_total_someri_femei)
+                                                array3.push(json[i].Numar_total_someri_barbati)
+                                                array4.push(json[i].Numar_someri_indemnizati)
+                                                array5.push(json[i].Numar_someri_neindemnizati)
+                                                array6.push(json[i].Rata_somajului)
+                                                array7.push(json[i].Rata_somajului_Feminina)
+                                                array8.push(json[i].Rata_somajului_Masculina)
+                                            }
+                                        }
+                                        else if (criteriu === 'educatie') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].Total_someri_din_care)
+                                                array2.push(json[i].fara_studii)
+                                                array3.push(json[i].invatamant_primar)
+                                                array4.push(json[i].invatamant_gimnazial)
+                                                array5.push(json[i].invatamant_liceal)
+                                                array6.push(json[i].invatamant_posticeal)
+                                                array7.push(json[i]['invatamant_profesional/arte_si_meserii'])
+                                                array8.push(json[i].invatamant_universitar)
+                                            }
+                                        }
+
+                                        function get_data(a, b, c, d, e, f, g, h, nume_coloana, crit) {
+
+                                            if (crit === 'varste') {
+                                                if (nume_coloana === 'TOTAL')
+                                                    return a;
+                                                if (nume_coloana === 'Sub_25_ani')
+                                                    return b;
+                                                if (nume_coloana === 'ani_25_29')
+                                                    return c;
+                                                if (nume_coloana === 'ani_30_39')
+                                                    return d;
+                                                if (nume_coloana === 'ani_40_49')
+                                                    return e;
+                                                if (nume_coloana === 'ani_50_55')
+                                                    return f;
+                                                if (nume_coloana === 'peste_55_ani')
+                                                    return g;
+                                            }
+                                            else if (crit === 'medii') {
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI')
+                                                    return a;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_FEMEI')
+                                                    return b;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_BARBATI')
+                                                    return c;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_UBRAN')
+                                                    return d;
+                                                if (nume_coloana === 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN')
+                                                    return e;
+                                                if (nume_coloana === 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN')
+                                                    return f;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL')
+                                                    return g;
+                                                if (nume_coloana === 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL')
+                                                    return h;
+                                                if (nume_coloana === 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL')
+                                                    return i;
+                                            }
+                                            else if (crit === 'rata') {
+                                                if (nume_coloana === 'Numar_total_someri')
+                                                    return a;
+                                                if (nume_coloana === 'Numar_total_someri_femei')
+                                                    return b;
+                                                if (nume_coloana === 'Numar_total_someri_barbati')
+                                                    return c;
+                                                if (nume_coloana === 'Numar_someri_indemnizati')
+                                                    return d;
+                                                if (nume_coloana === 'Numar_someri_neindemnizati')
+                                                    return e;
+                                                if (nume_coloana === 'Numar_someri_neindemnizati')
+                                                    return f;
+                                                if (nume_coloana === 'Rata_somajului')
+                                                    return g;
+                                                if (nume_coloana === 'Rata_somajului_Feminina')
+                                                    return h;
+                                                if (nume_coloana === 'Rata_somajului_Masculina')
+                                                    return i;
+                                            }
+                                            else if (crit === 'educatie') {
+                                                if (nume_coloana === 'Total_someri_din_care')
+                                                    return a;
+                                                if (nume_coloana === 'fara_studii')
+                                                    return b;
+                                                if (nume_coloana === 'invatamant_primar')
+                                                    return c;
+                                                if (nume_coloana === 'invatamant_gimnazial')
+                                                    return d;
+                                                if (nume_coloana === 'invatamant_liceal')
+                                                    return e;
+                                                if (nume_coloana === 'invatamant_postliceal')
+                                                    return f;
+                                                if (nume_coloana === 'invatamant_profesional/arte_si_meserii')
+                                                    return g;
+                                                if (nume_coloana === 'invatamant_universitar')
+                                                    return h;
+                                            }
+                                        }
+
+
+                                        var ctx = document.getElementById('chart2').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: LUNI,
+                                                datasets: [{
+                                                    label: coloane[0],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[0], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)'
+
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+
+                                                {
+                                                    label: coloane[1],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[1], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[2],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[2], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[3],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[3], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[4],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[4], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[5],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[5], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[6],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[6], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[7],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[7], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[8],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[8], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                }
+
+
+                                                ]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    labels: {
+                                                        generateLabels: function (chart) {
+                                                            labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                            if (coloane[0]) {
+                                                                labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                                labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            }
+
+                                                            if (coloane[1]) {
+                                                                labels[1].fillStyle = 'rgba(54, 162, 235, 0.2)';
+                                                                labels[1].strokeStyle = 'rgba(54, 162, 235, 0.2)';
+                                                            }
+
+                                                            if (coloane[2]) {
+                                                                labels[2].fillStyle = 'rgba(255, 206, 86, 0.2)';
+                                                                labels[2].strokeStyle = 'rgba(255, 206, 86, 0.2)';
+                                                            }
+
+                                                            if (coloane[3]) {
+                                                                labels[3].fillStyle = 'rgba(75, 192, 192, 0.2)';
+                                                                labels[3].strokeStyle = 'rgba(75, 192, 192, 0.2)';
+                                                            }
+                                                            if (coloane[4]) {
+                                                                labels[4].fillStyle = 'rgba(153, 102, 255, 0.2)';
+                                                                labels[4].strokeStyle = 'rgba(153, 102, 255, 0.2)';
+                                                            }
+
+                                                            if (coloane[5]) {
+                                                                labels[5].fillStyle = 'rgba(255, 159, 64, 0.2)';
+                                                                labels[5].strokeStyle = 'rgba(255, 159, 64, 0.2)';
+                                                            }
+
+                                                            if (coloane[6]) {
+                                                                labels[6].fillStyle = 'rgba(123, 98, 50, 0.2)';
+                                                                labels[6].strokeStyle = 'rgba(123, 98, 50, 0.2)';
+                                                            }
+
+                                                            if (coloane[7]) {
+                                                                labels[7].fillStyle = 'rgba(0,0,139, 0.2)';
+                                                                labels[7].strokeStyle = 'rgba(0,0,139, 0.2)';
+                                                            }
+
+                                                            if (coloane[8]) {
+                                                                labels[8].fillStyle = 'rgba(128,0,128, 0.2)';
+                                                                labels[8].strokeStyle = 'rgba(128,0,128, 0.2)';
+                                                            }
+
+                                                            return labels;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                                xhttp.open("GET", url, false);
+                                xhttp.send();
+
+                            </script>
+                        </object>
+                    </li>
+                    <li>
+                        <!--<button id="varste" onclick="set_varste()">Varste</button>
+                        <button id="educatie" onclick="set_educatie()">Educatie</button>
+                        <button id="medii" onclick="set_medii()">Medii</button>
+                        <button id="rata" onclick="set_rata()">Rata</button>-->
+                        <h2 style="margin-top: 7vh;">RadarChart</h2>
+                        <object id="radar" width="600px" height="700px" data="">
+                            <div class="container">
+                                <canvas id="chart3" width="100%"></canvas>
+                            </div>
+                            <script>
+
+
+                                var currentLocation = window.location;
+                                console.log(currentLocation.pathname.split('/'))
+                                judet = currentLocation.pathname.split('/')[2]
+
+                                //aaa
+
+                                function getColoane(url) {
+                                    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`) // i just need to parse the args
+                                    var coloane = parsedUrl.searchParams.get('coloane')
+                                    if (coloane) {
+                                        return coloane.split(',')
+                                    }
+                                    return []
+                                }
+
+                                function getLuni(url) {
+                                    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`)
+                                    var luni = parsedUrl.searchParams.get('luni')
+                                    if (luni) {
+                                        return luni.split('&')
+                                    }
+                                    return []
+                                }
+
+                                function createLabel(luna) {
+                                    var result = []
+                                    for (temp of luna) {
+                                        if (temp == 1)
+                                            result.push('ianuarie')
+                                        if (temp == 2)
+                                            result.push('februarie')
+                                        if (temp == 3)
+                                            result.push('martie')
+                                        if (temp == 4)
+                                            result.push('aprilie')
+                                        if (temp == 5)
+                                            result.push('mai')
+                                        if (temp == 6)
+                                            result.push('iunie')
+                                        if (temp == 7)
+                                            result.push('iulie')
+                                        if (temp == 9)
+                                            result.push('septembrie')
+                                        if (temp == 10)
+                                            result.push('octombrie')
+                                        if (temp == 11)
+                                            result.push('noiembrie')
+                                        if (temp == 12)
+                                            result.push('decembrie')
+                                    }
+                                    return result
+                                }
+
+                                console.log(currentLocation.search)
+                                var temp = currentLocation.search.split('&')
+                                var criteriu2 = temp[0].split('?')[1]
+                                var coloane2 = getColoane(currentLocation.href)
+                                var luni = getLuni(currentLocation.href)
+
+                                function func_varste() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?varste'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_medii() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?medii'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_rata() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?rata'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+                                function func_educatie() {
+                                    var x = 'http://localhost:9000/judet/' + judet + '?educatie'
+                                    console.log(x)
+                                    location.assign(x)
+                                }
+
+                                //aaa
+
+                                if (criteriu2)
+                                    criteriu = criteriu2
+                                else
+                                    criteriu = 'varste'
+
+                                var url = 'http://localhost:9000/api/judet/' + judet + '?' + criteriu
+
+                                if (coloane2) {
+                                    url += '&coloane='
+                                    for (var i = 0; i < coloane2.length; i++)
+                                        if (i < coloane2.length - 1)
+                                            url += coloane2[i] + ','
+                                        else
+                                            url += coloane2[i]
+                                }
+
+                                if (luni) {
+                                    url += '&luni='
+                                    for (var i = 0; i < luni.length; i++)
+                                        if (i < luni.length - 1)
+                                            url += luni[i] + ','
+                                        else
+                                            url += luni[i]
+                                }
+                                var LUNI = []
+                                var coloane = []
+                                if (luni.length) {
+                                    LUNI = createLabel(luni[0].split(','))
+                                }
+                                else
+                                    LUNI = ['Aprilie', 'Mai', 'Iunie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Ianuarie', 'Decembrie', 'Martie']
+
+                                if (coloane2.length) {
+                                    coloane = coloane2
+                                }
+                                else {
+                                    if (criteriu === 'varste')
+                                        coloane = ['TOTAL', 'Sub_25_ani', 'ani_25_29', 'ani_30_39', 'ani_40_49', 'ani_50_55', 'peste_55_ani']
+                                    if (criteriu === 'medii')
+                                        coloane = ['NUMAR_TOTAL_SOMERI', 'NUMAR_TOTAL_SOMERI_FEMEI', 'NUMAR_TOTAL_SOMERI_BARBATI', 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_URBAN', 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN', 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN', 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL', 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL', 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL']
+                                    if (criteriu === 'rata')
+                                        coloane = ['Numar_total_someri', 'Numar_total_someri_femei', 'Numar_total_someri_barbati', 'Numar_someri_indemnizati', 'Numar_someri_neindemnizati', 'Rata_somajului', 'Rata_somajului_Feminina', 'Rata_somajului_Masculina']
+                                    if (criteriu === 'educatie')
+                                        coloane = ['Total_someri_din_care', 'fara_studii', 'invatamant_primar', 'invatamant_gimnazial', 'invatamant_liceal', 'invatamant_postliceal', 'invatamant_profesional/arte_si_meserii', 'invatamant_universitar']
+                                }
+
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var json = JSON.parse(this.response);
+                                        console.log(json)
+                                        var array1 = []
+                                        var array2 = []
+                                        var array3 = []
+                                        var array4 = []
+                                        var array5 = []
+                                        var array6 = []
+                                        var array7 = []
+                                        var array8 = []
+                                        var array9 = []
+                                        if (criteriu === 'varste') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].TOTAL)
+                                                array2.push(json[i].Sub_25_ani)
+                                                array3.push(json[i].ani_25_29)
+                                                array4.push(json[i].ani_30_39)
+                                                array4.push(json[i].ani_40_49)
+                                                array6.push(json[i].ani_50_55)
+                                                array7.push(json[i].peste_55_ani)
+                                            }
+                                        }
+                                        else if (criteriu === 'medii') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].NUMAR_TOTAL_SOMERI)
+                                                array2.push(json[i].NUMAR_TOTAL_SOMERI_FEMEI)
+                                                array3.push(json[i].NUMAR_TOTAL_SOMERI_BARBATI)
+                                                array4.push(json[i].NUMAR_TOTAL_SOMERI_DIN_MEDIUL_URBAN)
+                                                array5.push(json[i].NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN)
+                                                array6.push(json[i].NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN)
+                                                array7.push(json[i].NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL)
+                                                array8.push(json[i].NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL)
+                                                array9.push(json[i].NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL)
+                                            }
+                                        }
+                                        else if (criteriu === 'rata') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].Numar_total_someri)
+                                                array2.push(json[i].Numar_total_someri_femei)
+                                                array3.push(json[i].Numar_total_someri_barbati)
+                                                array4.push(json[i].Numar_someri_indemnizati)
+                                                array5.push(json[i].Numar_someri_neindemnizati)
+                                                array6.push(json[i].Rata_somajului)
+                                                array7.push(json[i].Rata_somajului_Feminina)
+                                                array8.push(json[i].Rata_somajului_Masculina)
+                                            }
+                                        }
+                                        else if (criteriu === 'educatie') {
+                                            for (var i = 0; i < json.length; i++) {
+                                                // luni.push(json[i].luna);
+                                                array1.push(json[i].Total_someri_din_care)
+                                                array2.push(json[i].fara_studii)
+                                                array3.push(json[i].invatamant_primar)
+                                                array4.push(json[i].invatamant_gimnazial)
+                                                array5.push(json[i].invatamant_liceal)
+                                                array6.push(json[i].invatamant_posticeal)
+                                                array7.push(json[i]['invatamant_profesional/arte_si_meserii'])
+                                                array8.push(json[i].invatamant_universitar)
+                                            }
+                                        }
+
+                                        function get_data(a, b, c, d, e, f, g, h, nume_coloana, crit) {
+
+                                            if (crit === 'varste') {
+                                                if (nume_coloana === 'TOTAL')
+                                                    return a;
+                                                if (nume_coloana === 'Sub_25_ani')
+                                                    return b;
+                                                if (nume_coloana === 'ani_25_29')
+                                                    return c;
+                                                if (nume_coloana === 'ani_30_39')
+                                                    return d;
+                                                if (nume_coloana === 'ani_40_49')
+                                                    return e;
+                                                if (nume_coloana === 'ani_50_55')
+                                                    return f;
+                                                if (nume_coloana === 'peste_55_ani')
+                                                    return g;
+                                            }
+                                            else if (crit === 'medii') {
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI')
+                                                    return a;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_FEMEI')
+                                                    return b;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_BARBATI')
+                                                    return c;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_UBRAN')
+                                                    return d;
+                                                if (nume_coloana === 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_URBAN')
+                                                    return e;
+                                                if (nume_coloana === 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_URBAN')
+                                                    return f;
+                                                if (nume_coloana === 'NUMAR_TOTAL_SOMERI_DIN_MEDIUL_RURAL')
+                                                    return g;
+                                                if (nume_coloana === 'NUMAR_SOMERI_FEMEI_DIN_MEDIUL_RURAL')
+                                                    return h;
+                                                if (nume_coloana === 'NUMAR_SOMERI_BARBATI_DIN_MEDIUL_RURAL')
+                                                    return i;
+                                            }
+                                            else if (crit === 'rata') {
+                                                if (nume_coloana === 'Numar_total_someri')
+                                                    return a;
+                                                if (nume_coloana === 'Numar_total_someri_femei')
+                                                    return b;
+                                                if (nume_coloana === 'Numar_total_someri_barbati')
+                                                    return c;
+                                                if (nume_coloana === 'Numar_someri_indemnizati')
+                                                    return d;
+                                                if (nume_coloana === 'Numar_someri_neindemnizati')
+                                                    return e;
+                                                if (nume_coloana === 'Numar_someri_neindemnizati')
+                                                    return f;
+                                                if (nume_coloana === 'Rata_somajului')
+                                                    return g;
+                                                if (nume_coloana === 'Rata_somajului_Feminina')
+                                                    return h;
+                                                if (nume_coloana === 'Rata_somajului_Masculina')
+                                                    return i;
+                                            }
+                                            else if (crit === 'educatie') {
+                                                if (nume_coloana === 'Total_someri_din_care')
+                                                    return a;
+                                                if (nume_coloana === 'fara_studii')
+                                                    return b;
+                                                if (nume_coloana === 'invatamant_primar')
+                                                    return c;
+                                                if (nume_coloana === 'invatamant_gimnazial')
+                                                    return d;
+                                                if (nume_coloana === 'invatamant_liceal')
+                                                    return e;
+                                                if (nume_coloana === 'invatamant_postliceal')
+                                                    return f;
+                                                if (nume_coloana === 'invatamant_profesional/arte_si_meserii')
+                                                    return g;
+                                                if (nume_coloana === 'invatamant_universitar')
+                                                    return h;
+                                            }
+                                        }
+
+
+                                        var ctx = document.getElementById('chart3').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'radar',
+                                            data: {
+                                                labels: LUNI,
+                                                datasets: [{
+                                                    label: coloane[0],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[0], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)'
+
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 99, 132, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+
+                                                {
+                                                    label: coloane[1],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[1], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                        'rgba(54, 162, 235, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                        'rgba(54, 162, 235, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[2],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[2], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                        'rgba(255, 206, 86, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[3],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[3], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(75, 192, 192, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(75, 192, 192, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[4],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[4], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                        'rgba(153, 102, 255, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)',
+                                                        'rgba(153, 102, 255, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[5],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[5], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)',
+                                                        'rgba(255, 159, 64, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                        'rgba(255, 159, 64, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[6],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[6], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                        'rgba(123, 98, 50, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                        'rgba(123, 98, 50, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[7],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[7], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                        'rgba(0,0,139, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                        'rgba(0,0,139, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                },
+                                                {
+                                                    label: coloane[8],
+                                                    data: get_data(array1, array2, array3, array4, array5, array6, array7, array8, coloane[8], criteriu),
+                                                    backgroundColor: [
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                        'rgba(128,0,128, 0.2)',
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                        'rgba(128,0,128, 1)',
+                                                    ],
+                                                    borderWidth: 1
+                                                }
+
+
+                                                ]
+                                            },
+                                            options: {
+                                                legend: {
+                                                    labels: {
+                                                        generateLabels: function (chart) {
+                                                            labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                            if (coloane[0]) {
+                                                                labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                                labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                            }
+
+                                                            if (coloane[1]) {
+                                                                labels[1].fillStyle = 'rgba(54, 162, 235, 0.2)';
+                                                                labels[1].strokeStyle = 'rgba(54, 162, 235, 0.2)';
+                                                            }
+
+                                                            if (coloane[2]) {
+                                                                labels[2].fillStyle = 'rgba(255, 206, 86, 0.2)';
+                                                                labels[2].strokeStyle = 'rgba(255, 206, 86, 0.2)';
+                                                            }
+
+                                                            if (coloane[3]) {
+                                                                labels[3].fillStyle = 'rgba(75, 192, 192, 0.2)';
+                                                                labels[3].strokeStyle = 'rgba(75, 192, 192, 0.2)';
+                                                            }
+                                                            if (coloane[4]) {
+                                                                labels[4].fillStyle = 'rgba(153, 102, 255, 0.2)';
+                                                                labels[4].strokeStyle = 'rgba(153, 102, 255, 0.2)';
+                                                            }
+
+                                                            if (coloane[5]) {
+                                                                labels[5].fillStyle = 'rgba(255, 159, 64, 0.2)';
+                                                                labels[5].strokeStyle = 'rgba(255, 159, 64, 0.2)';
+                                                            }
+
+                                                            if (coloane[6]) {
+                                                                labels[6].fillStyle = 'rgba(123, 98, 50, 0.2)';
+                                                                labels[6].strokeStyle = 'rgba(123, 98, 50, 0.2)';
+                                                            }
+
+                                                            if (coloane[7]) {
+                                                                labels[7].fillStyle = 'rgba(0,0,139, 0.2)';
+                                                                labels[7].strokeStyle = 'rgba(0,0,139, 0.2)';
+                                                            }
+
+                                                            if (coloane[8]) {
+                                                                labels[8].fillStyle = 'rgba(128,0,128, 0.2)';
+                                                                labels[8].strokeStyle = 'rgba(128,0,128, 0.2)';
+                                                            }
+
+                                                            return labels;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                };
+                                xhttp.open("GET", url, false);
+                                xhttp.send();
+
+                            </script>
+                        </object>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="sidebar" style="background-color: #7c83e92f;">
+            <a href="../regiune/" id="change_reg">
+                <img id="hover_img" src="./Reg_Moldova.png" alt="Moldova" class="reg_prop" />
+                <script>
+                    var judet = currentLocation.pathname.split('/')[2]
+                    var nordest = ['BACAU', 'BOTOSANI', 'IASI', 'NEAMT', 'SUCEAVA', 'VASLUI']
+                    var sudest = ['BRAILA', 'BUZAU', 'CONSTANTA', 'GALATI', 'TULCEA', 'VRANCEA']
+                    var sud = ['ARGES', 'CALARASI', 'DAMBOVITA', 'GIURGIU', 'IALOMITA', 'PRAHOVA', 'TELEORMAN']
+                    var sudvest = ['DOLJ', 'GORJ', 'MEHEDINTI', 'OLT', 'VALCEA']
+                    var vestul = ['ARAD', 'CARAS', 'HUNEDOARA', 'TIMIS']
+                    var nordvest = ['BIHOR', 'BISTRITA', 'CLUJ', 'MARAMURES', 'SATUMARE', 'SALAJ']
+                    var centrul = ['ALBA', 'BRASOV', 'COVASNA', 'HARGHITA', 'MURES', 'SIBIU']
+                    var ilfbuc = ['BUCURESTI', 'ILFOV']
+                    var regiuni = []
+                    regiuni.push(nordest); regiuni.push(sudest); regiuni.push(sud); regiuni.push(sudvest)
+                    regiuni.push(vestul); regiuni.push(nordvest); regiuni.push(centrul); regiuni.push(ilfbuc)
+
+                    var regs = ['Bucuresti-Ilfov', 'Nord-Est', 'Nord-Vest', 'Sud-Est', 'Sud-Muntenia', 'Sud-Vest-Oltenia', 'Vest', 'Centru']
+
+                    var mapo = []
+                    mapo[nordest] = 'nordest'
+                    mapo[sudest] = 'sudest'
+                    mapo[sud] = 'sud'
+                    mapo[sudvest] = 'sudvest'
+                    mapo[vestul] = 'vestul'
+                    mapo[nordvest] = 'nordvest'
+                    mapo[centrul] = 'centrul'
+                    mapo[ilfbuc] = 'bucilfov'
+
+                    var mapo2 = []
+                    mapo2[nordest] = 'Nord-Est'
+                    mapo2[sudest] = 'Sud-Est'
+                    mapo2[sud] = 'Sud-Muntenia'
+                    mapo2[sudvest] = 'Sud-Vest-Oltenia'
+                    mapo2[vestul] = 'Vest'
+                    mapo2[centrul] = 'Centru'
+                    mapo2[ilfbuc] = 'Bucuresti-Ilfov'
+                    mapo2[nordvest] = 'Nord-Vest'
+
+                    for (reg of regiuni) {
+                        for (jud of reg) {
+                            if (jud === judet) {
+                                document.getElementsByClassName("reg_prop")[0].src = `./${mapo[reg]}.svg`
+                                document.getElementById('change_reg').setAttribute('href', `../regiune/${mapo2[reg]}`)
+                            }
+                        }
+                    }
+                </script>
+            </a>
+            <a href="../index.html">
+                <img id="hover_img" src="MAPABUNA.svg" alt="Romania" class="tara_sb" style="filter: sepia();" />
+            </a>
+        </div>
+        <a href="#top"><button
+                style="margin-top: 91vh; right: 3px; position: fixed; width: 50px; background-color: #7c83e959; color: gray;"
+                id="topbutton">to the top</button></a>
+    </div>
+
+</body>
+
+</html>

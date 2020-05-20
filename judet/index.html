@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <title>Main Page</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header" style="background-color: #8c7ce92a;">
+            <h1>&Scedil;omajul &icirc;n Rom&acirc;nia</h1>
+        </div>
+        <div class="map-content">
+          <!--  <img src="MAPABUNA.svg" alt="Romania" id="romaniaMap" class="tara_prop" /> -->
+            <object data="MAPABUNA.svg" type="image/svg+xml" id="romaniaMap" width="100%" height="100%" id="harta" class="tara_prop"></object>
+            <script src="mapScript.js"></script>
+        </div>
+        <div class="chart-content">
+            <!--<div id="nume"><p style="color:black;">Aaaaaa</p></div>-->
+            <!--Nu vor ramane aici butoanele de download, dar le-am pus pt testare, posibil sa facem dropdown cu variante de download-->
+            <button id="csvdoc" onclick="CSVdata()">CSV Data</button>
+            <button id="svgdoc" onclick="SVGdata()">SVG Data</button>
+            <button id="xmldoc" onclick="XMLdata()">XML Data</button>
+            <button id="pdfdoc">PDF Data</button></div>
+        <script type="text/javascript">
+        //mai editam cand o sa avem tabelele si chart-urile aici direct pt element id
+            document.onclick = function () {
+                document.getElementById('pdfdoc').onclick = function () {
+                    var pdf = new jsPDF('p', 'pt', 'letter')
+                    var source = document.getElementById('nume')
+                    pdf.fromHTML(source, 0.5, 0.5, { width: 7 })
+                    pdf.save('PDFdata.pdf')
+                }
+            }
+        </script>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+button{
+    display: inline-block;
+    position: sticky;
+    color: rgb(230, 221, 221);
+    background-color: rgb(20, 22, 139);
+    border-radius: 7%;
+    border-color: rgb(15, 14, 63);
+    margin-left: 20px;
+    font-style: italic;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.container {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+}
+.chart-content{
+  position: relative;
+  grid-area: chart;
+}

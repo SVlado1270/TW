@@ -300,6 +300,16 @@ ul {
     }
 }
 
+#csv {
+    margin-left: 5vw;
+    width: 10vw;
+    font-size: 1.8vh;
+    color: whitesmoke;
+    height: auto;
+    background-color: rgba(28, 0, 128, 0.705);
+    border-color: rgb(212, 196, 212);
+}
+
 @media only screen and (min-width: 350px) and (max-width: 700px) and (orientation: portrait) {
     .tara_prop {
         margin-top: 5vh;

@@ -36,11 +36,7 @@
                 <h2 style="margin-top: 1vh; margin-bottom: 5vh;">Vizualizare statistici</h2>
                 <ul>
                     <!--procentele nu sunt supported de HTML5, desi pt noi vor functiona-->
-                    <li><button id="csv" onclick="get_csv_regiune()">DOWNLOAD CSV</button>
-                        <button id="xml" onclick="get_xml_regiune()">DOWNLOAD XML</button>
-                        <button id="pdf" onclick="get_pdf_regiune()">DOWNLOAD PDF</button></li>
-                    <li>
-                        <h2 style="margin-top: 6vh; margin-left: -5px;">BarChart</h2>
+                        <h2 style="margin-left: -5px;">BarChart</h2>
                     </li>
                     <li>
                         <div id="bar" style=" width:90%; height:70%; margin-left:1vw; ">
@@ -356,15 +352,19 @@
                             </script>
                         </div>
                     </li>
-
+                    <li><button style="
+                        margin-bottom: -50px;
+                        margin-left: 1vw;
+                        width: 12vw;
+                        font-size: 1.8vh;
+                        color: whitesmoke;
+                        height: auto;
+                        background-color: rgba(28, 0, 128, 0.705);
+                        border-color: rgb(212, 196, 212);" onclick="get_csv_regiune()">DOWNLOAD CSV</button>
+                    <li>
+                
                 </ul>
 
-                <script>
-                    //   console.log(sessionStorage.getItem('regiune'))
-                    // document.getElementById('bar').setAttribute('data', "./BarChartRegiune.html");
-                    //document.getElementById('line').setAttribute('data', "./LineChartRegiune.html");
-                    //document.getElementById('radar').setAttribute('data', "./RadarChartRegiune.html");
-                </script>
             </div>
         </div>
         <div class="sidebar" style="background-color: #8c7ce92a;">

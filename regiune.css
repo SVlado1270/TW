@@ -97,7 +97,11 @@ h2 {
     width: 100%;
 }
 
-#hover_img:hover {
+#hover_img1:hover {
+    box-shadow: 0 0 2px 1px rgba(7, 103, 134, 0.5);
+}
+
+#hover_img2:hover {
     box-shadow: 0 0 2px 1px rgba(7, 103, 134, 0.5);
 }
 
@@ -335,12 +339,12 @@ ul {
         margin-left: -10px;
         width: 8vw;
     }
-    #bar{
+    #bar {
         margin-bottom: 100px;
     }
 }
 
-button{
+button {
     display: inline-block;
     position: sticky;
     margin-left: 5vw;
@@ -352,4 +356,4 @@ button{
     border-color: rgb(212, 196, 212);
     border-radius: 7px;
     text-align: center;
-  }
+}

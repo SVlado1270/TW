@@ -1,4 +1,4 @@
-var map = document.getElementById("romaniaMap");
+var map = document.getElementById("harta");
 map.addEventListener("load", function() {
 
     var svgDoc = this.getSVGDocument();

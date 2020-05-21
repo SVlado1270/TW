@@ -21,7 +21,7 @@
         </div>
 
         <div class="map-content">
-            <img id="img_reg" src="./Nord-Est.svg" alt="Regiunea NE" class="reg_prop" style="filter: sepia();"/>
+            <img id="img_reg" src="./Nord-Est.svg" alt="Regiunea NE" class="reg_prop" style="filter: sepia(0%);" />
         </div>
 
         <script>
@@ -36,13 +36,16 @@
                 <h2 style="margin-top: 1vh; margin-bottom: 5vh;">Vizualizare statistici</h2>
                 <ul>
                     <!--procentele nu sunt supported de HTML5, desi pt noi vor functiona-->
-                    <button id="csv" onclick="get_csv_regiune()">DOWNLOAD CSV</button>
-                    <button id="xml" onclick="get_xml_regiune()">DOWNLOAD XML</button>
-                    <button id="pdf" onclick="get_pdf_regiune()">DOWNLOAD PDF</button>
-                    <h2 style="margin-top: 6vh; margin-left: -5px;">BarChart</h2>
-                    <li><object id="bar" width="600px" height="700px" data="">
+                    <li><button id="csv" onclick="get_csv_regiune()">DOWNLOAD CSV</button>
+                        <button id="xml" onclick="get_xml_regiune()">DOWNLOAD XML</button>
+                        <button id="pdf" onclick="get_pdf_regiune()">DOWNLOAD PDF</button></li>
+                    <li>
+                        <h2 style="margin-top: 6vh; margin-left: -5px;">BarChart</h2>
+                    </li>
+                    <li>
+                        <div id="bar" style=" width:90%; height:70%; margin-left:1vw; ">
                             <div class="container">
-                                <canvas id="chart1" width="700px" height="600px" style="margin-left: -75px;"></canvas>
+                                <canvas id="chart1" width="700" height="600" style="margin-left: -75px;"></canvas>
                             </div>
                             <script>
                                 var currentLocation = window.location;
@@ -54,7 +57,7 @@
                                     var url2 = 'https://vvv1270.azurewebsites.net/' + 'Regiune' + '/' + sessionStorage.getItem('regiune');
                                     console.log(url2)
                                     var xhttp = new XMLHttpRequest();
-                                    xhttp.onreadystatechange = function () {
+                                    xhttp.onreadystatechange = function() {
                                         if (this.readyState == 4 && this.status == 200) {
                                             var json = JSON.parse(this.response)
 
@@ -80,7 +83,7 @@
 
                                 console.log(url)
                                 var xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function () {
+                                xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
                                         var temp = []
                                         var rez = []
@@ -89,8 +92,7 @@
                                         for (var i = 0; i < json.length; i++) {
                                             if (counter % 10) {
                                                 temp.push(json[i])
-                                            }
-                                            else {
+                                            } else {
                                                 temp.push(json[i])
                                                 rez.push(temp)
                                                 temp = []
@@ -140,13 +142,12 @@
                                                         'rgba(255, 99, 132, 1)'
                                                     ],
                                                     borderWidth: 1
-                                                }
-                                                ]
+                                                }]
                                             },
                                             options: {
                                                 legend: {
                                                     labels: {
-                                                        generateLabels: function (chart) {
+                                                        generateLabels: function(chart) {
                                                             labels = Chart.defaults.global.legend.labels.generateLabels(chart);
                                                             labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
                                                             labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
@@ -160,13 +161,16 @@
                                 };
                                 xhttp.open("GET", url, false);
                                 xhttp.send();
-
                             </script>
-                        </object></li>
-                    <h2>LineChart</h2>
-                    <li><object id="line" width="600px" height="700px" data="">
+                        </div>
+                    </li>
+                    <li>
+                        <h2>LineChart</h2>
+                    </li>
+                    <li>
+                        <div id="line" style=" width:90%; height:70%; margin-left:1vw; ">
                             <div class="container">
-                                <canvas id="chart2" width="700px" height="600px" style="margin-left: -75px;"></canvas>
+                                <canvas id="chart2" width="700" height="600" style="margin-left: -75px;"></canvas>
                             </div>
                             <script>
                                 var currentLocation = window.location;
@@ -175,7 +179,7 @@
                                 var url = 'https://vvv1270.azurewebsites.net/Regiune/' + regiune;
                                 console.log(url)
                                 var xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function () {
+                                xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
                                         var temp = []
                                         var rez = []
@@ -184,8 +188,7 @@
                                         for (var i = 0; i < json.length; i++) {
                                             if (counter % 10) {
                                                 temp.push(json[i])
-                                            }
-                                            else {
+                                            } else {
                                                 temp.push(json[i])
                                                 rez.push(temp)
                                                 temp = []
@@ -235,13 +238,12 @@
                                                         'rgba(255, 99, 132, 1)'
                                                     ],
                                                     borderWidth: 1
-                                                }
-                                                ]
+                                                }]
                                             },
                                             options: {
                                                 legend: {
                                                     labels: {
-                                                        generateLabels: function (chart) {
+                                                        generateLabels: function(chart) {
                                                             labels = Chart.defaults.global.legend.labels.generateLabels(chart);
                                                             labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
                                                             labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
@@ -255,13 +257,16 @@
                                 };
                                 xhttp.open("GET", url, false);
                                 xhttp.send();
-
                             </script>
-                        </object></li>
-                    <h2 style="margin-left: -10px;">RadarChart</h2>
-                    <li><object id="radar" width="600px" height="700px" data="">
+                        </div>
+                    </li>
+                    <li>
+                        <h2 style="margin-left: -10px;">RadarChart</h2>
+                    </li>
+                    <li>
+                        <div id="radar" style=" width:90%; height:70%; margin-left:1vw; ">
                             <div class="container">
-                                <canvas id="chart3" width="700px" height="600px" style="margin-left: -75px;"></canvas>
+                                <canvas id="chart3" width="700" height="600" style="margin-left: -75px;"></canvas>
                             </div>
                             <script>
                                 var currentLocation = window.location;
@@ -270,7 +275,7 @@
                                 var url = 'https://vvv1270.azurewebsites.net/Regiune/' + regiune;
                                 console.log(url)
                                 var xhttp = new XMLHttpRequest();
-                                xhttp.onreadystatechange = function () {
+                                xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4 && this.status == 200) {
                                         var temp = []
                                         var rez = []
@@ -279,8 +284,7 @@
                                         for (var i = 0; i < json.length; i++) {
                                             if (counter % 10) {
                                                 temp.push(json[i])
-                                            }
-                                            else {
+                                            } else {
                                                 temp.push(json[i])
                                                 rez.push(temp)
                                                 temp = []
@@ -330,13 +334,12 @@
                                                         'rgba(255, 99, 132, 1)'
                                                     ],
                                                     borderWidth: 1
-                                                }
-                                                ]
+                                                }]
                                             },
                                             options: {
                                                 legend: {
                                                     labels: {
-                                                        generateLabels: function (chart) {
+                                                        generateLabels: function(chart) {
                                                             labels = Chart.defaults.global.legend.labels.generateLabels(chart);
                                                             labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
                                                             labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
@@ -350,15 +353,15 @@
                                 };
                                 xhttp.open("GET", url, false);
                                 xhttp.send();
-
                             </script>
-                        </object></li>
+                        </div>
+                    </li>
 
                 </ul>
 
                 <script>
-                 //   console.log(sessionStorage.getItem('regiune'))
-                   // document.getElementById('bar').setAttribute('data', "./BarChartRegiune.html");
+                    //   console.log(sessionStorage.getItem('regiune'))
+                    // document.getElementById('bar').setAttribute('data', "./BarChartRegiune.html");
                     //document.getElementById('line').setAttribute('data', "./LineChartRegiune.html");
                     //document.getElementById('radar').setAttribute('data', "./RadarChartRegiune.html");
                 </script>
@@ -367,12 +370,12 @@
         <div class="sidebar" style="background-color: #8c7ce92a;">
 
             <a href="../index.html">
-                <img id="hover_img" src="MAPABUNA.svg" alt="Romania" class="tara_sb" style="filter: sepia();" />
+                <img id="hover_img1" src="MAPABUNA.svg" alt="Romania" class="tara_sb" style="filter: sepia(0%);" />
             </a>
 
             <div class="dropdown-menu">
                 <div class="harta_hover">
-                    <img id="hover_img" src="./Reg_Moldova.png" alt="Moldova" class="imagine" />
+                    <img id="hover_img2" src="./Reg_Moldova.png" alt="Moldova" class="imagine" />
 
                     <div class="drop-content" id="listaJud">
 
@@ -384,7 +387,6 @@
                         <a href="Judet.html" id="6" class="jud_comp"></a>
                         <a href="Judet.html" id="7" class="jud_comp"></a>
                         <script>
-
                             var nordest = ['BACAU', 'BOTOSANI', 'IASI', 'NEAMT', 'SUCEAVA', 'VASLUI']
                             var sudest = ['BRAILA', 'BUZAU', 'CONSTANTA', 'GALATI', 'TULCEA', 'VRANCEA']
                             var sud = ['ARGES', 'CALARASI', 'DAMBOVITA', 'GIURGIU', 'IALOMITA', 'PRAHOVA', 'TELEORMAN']
@@ -415,7 +417,6 @@
                                 document.getElementsByClassName("jud_comp")[i].innerHTML = mapo2[curr_region][i]
                                 document.getElementsByClassName("jud_comp")[i].setAttribute('href', `../judet/${mapo2[curr_region][i]}`)
                             }
-
                         </script>
                         <!--<script src="regiuneScript.js"></script>-->
                     </div>

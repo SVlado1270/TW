@@ -498,4 +498,9 @@ button {
         display: flex;
         justify-content: space-evenly;
     }
+    .top_somaj {
+        grid-area: topuri;
+        grid-column: 6/10;
+        grid-row: 3/6;
+    }
 }

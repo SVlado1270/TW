@@ -65,6 +65,7 @@ exports.getPng = function (req, resp) {
     fileStream.pipe(resp)
 }
 
+
 exports.getJudet = function (req, resp) {
     resp.writeHead(200, { 'Content-Type': 'text/html' })
     fs.readFile('./judet.html', null, function (error, data) {
@@ -104,6 +105,20 @@ exports.show404 = function (req, resp) {
 exports.getComparare = function (req, resp) {
     resp.writeHead(200, { 'Content-Type': 'text/html' })
     fs.readFile('./Comparare.html', null, function (error, data) {
+        if (error) {
+            resp.writeHead(404);
+            resp.write('File not found');
+        }
+        else {
+            resp.write(data)
+        }
+        resp.end()
+    })
+}
+
+exports.showReport = function (req, resp) {
+    resp.writeHead(200, { 'Content-Type': 'text/html' })
+    fs.readFile('./ScholarlyReport.html', null, function (error, data) {
         if (error) {
             resp.writeHead(404);
             resp.write('File not found');

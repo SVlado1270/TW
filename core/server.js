@@ -69,6 +69,10 @@ http.createServer(function (req, resp) {
                 jud.query(req, resp)
             }
 
+            else if (req.url === '/ScholarlyReport') {
+                httpsMsg.showReport(req, resp)
+            }
+
             break;
     }
 

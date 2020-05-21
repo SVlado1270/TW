@@ -23,35 +23,63 @@
             <div class="dropdown">
                 <button class="dropbtn">Catre regiuni</button>
                 <div class="dropdown-content">
-                    <a href="#">Regiunea Nord-Est</a>
-                    <a href="#">Regiunea Sud-Est</a>
-                    <a href="#">Regiunea Sud-Muntenia</a>
-                    <a href="#">Regiunea Sud-Vest Oltenia</a>
-                    <a href="#">Regiunea Vest</a>
-                    <a href="#">Regiunea Nord-Vest</a>
-                    <a href="#">Regiunea Centru</a>
-                    <a href="#">Regiunea Bucuresti-Ilfov</a>
+                    <a href="/regiune/Nord-Est">Regiunea Nord-Est</a>
+                    <a href="/regiune/Sud-Est">Regiunea Sud-Est</a>
+                    <a href="/regiune/Sud-Muntenia">Regiunea Sud-Muntenia</a>
+                    <a href="/regiune/Sud-Vest-Oltenia">Regiunea Sud-Vest Oltenia</a>
+                    <a href="/regiune/Vest">Regiunea Vest</a>
+                    <a href="/regiune/Nord-Vest">Regiunea Nord-Vest</a>
+                    <a href="/regiune/Centru">Regiunea Centru</a>
+                    <a href="/regiune/Bucuresti-Ilfov">Regiunea Bucuresti-Ilfov</a>
                 </div>
             </div>
 
         </div>
 
         <div class="top_somaj">
-          <P>   INFORMATII </P> 
-          <P>AM NEVOIE</P>  
-          <P>   INFORMATII </P> 
-          <P>AM NEVOIE</P>  
-          <P>   INFORMATII </P> 
-          <P>AM NEVOIE</P>
+            <div class="top3_titlu">
+                <h2>Top 3 judete dupa somaj</h2>
+            </div>
+            <div class="top3">
+                <div class="top3_container">
+                    <img src="/judet/GreenArrow.svg.png" class="arrow">
+                    <div class="top3_element">
+                        <div class="top_judet">
+                            <h2>1.Ilfov - 0,54%</h2>
+                        </div>
+                        <div class="top_judet">
+                            <h2>2.Timis - 0,74%</h2>
+                        </div>
+                        <div class="top_judet">
+                            <h2>3.Bihor - 1,15%</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="top3_container">
+                    <div class="top3_element">
+                        <div class="top_judet">
+                            <h2>1.Vaslui - 8,10%</h2>
+                        </div>
+                        <div class="top_judet">
+                            <h2>2.Teleorman - 7,44%</h2>
+                        </div>
+                        <div class="top_judet">
+                            <h2>3.Dolj - 7,43%</h2>
+                        </div>
+                    </div>
+                    <img src="/judet/RedArrow.png" class="arrow">
+                </div>
+            </div>
         </div>
 
-        <div class="titlu_comparare" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
-            <h2>Comparare judete:</h2>
-        </div>
 
         <div class="comparare_judete" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
-            <div class="select">
-                <select name="slct" id="slct">
+            <div class="titlu_comparare" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
+                <h2>Comparare judete:</h2>
+            </div>
+            <div class="jud_comp">
+                <div class="select">
+                    <select name="slct" id="slct">
                   <option selected disabled>Alegeti judetul</option>
                   <option value="1">Alba</option>
                   <option value="2">Arad</option>
@@ -96,9 +124,9 @@
                   <option value="41">Valcea</option>
                   <option value="42">Vrancea</option>
                 </select>
-            </div>
-            <div class="select">
-                <select name="slct" id="slct">
+                </div>
+                <div class="select">
+                    <select name="slct" id="slct">
                   <option selected disabled>Alegeti judetul</option>
                   <option value="1">Alba</option>
                   <option value="2">Arad</option>
@@ -143,7 +171,9 @@
                   <option value="41">Valcea</option>
                   <option value="42">Vrancea</option>
                 </select>
+                </div>
             </div>
+            <button class="compare_btn">Compara!</button>
         </div>
     </div>
 

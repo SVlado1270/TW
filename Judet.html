@@ -31,9 +31,8 @@
         </div>
         <div class="map-content">
 
-            <img src="." alt="Iasi" class="jud_prop" style="filter: sepia(65%);">
+            <img src="." alt="." class="jud_prop" style="filter: sepia(65%);">
             <script>
-
                 var currentLocation = window.location;
                 console.log(currentLocation.pathname.split('/')[2])
                 document.getElementById('nume_j').innerHTML = 'Judetul ' + currentLocation.pathname.split('/')[2]
@@ -49,6 +48,7 @@
 
 
                 document.getElementsByClassName("jud_prop")[0].src = `../${currentLocation.pathname.split('/'[2])}.svg`
+                document.getElementsByClassName("jud_prop")[0].alt = currentLocation.pathname.split('/')[2]
             </script>
 
         </div>
@@ -2029,8 +2029,14 @@
                     var centrul = ['ALBA', 'BRASOV', 'COVASNA', 'HARGHITA', 'MURES', 'SIBIU']
                     var ilfbuc = ['BUCURESTI', 'ILFOV']
                     var regiuni = []
-                    regiuni.push(nordest); regiuni.push(sudest); regiuni.push(sud); regiuni.push(sudvest)
-                    regiuni.push(vestul); regiuni.push(nordvest); regiuni.push(centrul); regiuni.push(ilfbuc)
+                    regiuni.push(nordest);
+                    regiuni.push(sudest);
+                    regiuni.push(sud);
+                    regiuni.push(sudvest)
+                    regiuni.push(vestul);
+                    regiuni.push(nordvest);
+                    regiuni.push(centrul);
+                    regiuni.push(ilfbuc)
 
                     var regs = ['Bucuresti-Ilfov', 'Nord-Est', 'Nord-Vest', 'Sud-Est', 'Sud-Muntenia', 'Sud-Vest-Oltenia', 'Vest', 'Centru']
 

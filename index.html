@@ -16,7 +16,8 @@
         </div>
         <div class="map-content">
             <!--<img src="MAPABUNA.svg" alt="Romania" id="romaniaMap" class="tara_prop" />-->
-            <object data="MAPABUNA.svg" type="image/svg+xml" id="romaniaMap" width="100%" height="100%" id="harta" class="tara_prop"></object>
+            <object data="MAPABUNA.svg" type="image/svg+xml" id="romaniaMap" width="100%" height="100%" id="harta"
+                class="tara_prop"></object>
             <script src="mapScript.js"></script>
         </div>
         <div class="dropdown-regiuni">
@@ -79,101 +80,139 @@
             </div>
             <div class="jud_comp">
                 <div class="select">
-                    <select name="slct" id="slct">
-                  <option selected disabled>Alegeti judetul</option>
-                  <option value="1">Alba</option>
-                  <option value="2">Arad</option>
-                  <option value="3">Arges</option>
-                  <option value="4">Bacau</option>
-                  <option value="5">Bihor</option>
-                  <option value="6">Bistrita-Nasaud</option>
-                  <option value="7">Botosani</option>
-                  <option value="8">Brasov</option>
-                  <option value="9">Braila</option>
-                  <option value="10">Bucuresti</option>
-                  <option value="11">Buzau</option>
-                  <option value="12">Caras-Severin</option>
-                  <option value="13">Calarasi</option>
-                  <option value="14">Cluj</option>
-                  <option value="15">Constanta</option>
-                  <option value="16">Covasna</option>
-                  <option value="17">Dambovita</option>
-                  <option value="18">Dolj</option>
-                  <option value="19">Galati</option>
-                  <option value="20">Giurgiu</option>
-                  <option value="21">Gorj</option>
-                  <option value="22">Harghita</option>
-                  <option value="23">Hunedoara</option>
-                  <option value="24">Ialomita</option>
-                  <option value="25">Iasi</option>
-                  <option value="26">Ilfov</option>
-                  <option value="27">Maramures</option>
-                  <option value="28">Mehedinti</option>
-                  <option value="29">Mures</option>
-                  <option value="30">Neamt</option>
-                  <option value="31">Olt</option>
-                  <option value="32">Prahova</option>
-                  <option value="33">Satu Mare</option>
-                  <option value="34">Salaj</option>
-                  <option value="35">Sibiu</option>
-                  <option value="36">Suceava</option>
-                  <option value="37">Teleorman</option>
-                  <option value="38">Timis</option>
-                  <option value="39">Tulcea</option>
-                  <option value="40">Vaslui</option>
-                  <option value="41">Valcea</option>
-                  <option value="42">Vrancea</option>
-                </select>
+                    <select name="slct" id="slct" onchange='get_judet1()'>
+                        <option selected disabled>Alegeti judetul</option>
+                        <option value="1">Alba</option>
+                        <option value="2">Arad</option>
+                        <option value="3">Arges</option>
+                        <option value="4">Bacau</option>
+                        <option value="5">Bihor</option>
+                        <option value="6">Bistrita</option>
+                        <option value="7">Botosani</option>
+                        <option value="8">Brasov</option>
+                        <option value="9">Braila</option>
+                        <option value="10">Bucuresti</option>
+                        <option value="11">Buzau</option>
+                        <option value="12">Caras</option>
+                        <option value="13">Calarasi</option>
+                        <option value="14">Cluj</option>
+                        <option value="15">Constanta</option>
+                        <option value="16">Covasna</option>
+                        <option value="17">Dambovita</option>
+                        <option value="18">Dolj</option>
+                        <option value="19">Galati</option>
+                        <option value="20">Giurgiu</option>
+                        <option value="21">Gorj</option>
+                        <option value="22">Harghita</option>
+                        <option value="23">Hunedoara</option>
+                        <option value="24">Ialomita</option>
+                        <option value="25">Iasi</option>
+                        <option value="26">Ilfov</option>
+                        <option value="27">Maramures</option>
+                        <option value="28">Mehedinti</option>
+                        <option value="29">Mures</option>
+                        <option value="30">Neamt</option>
+                        <option value="31">Olt</option>
+                        <option value="32">Prahova</option>
+                        <option value="33">SatuMare</option>
+                        <option value="34">Salaj</option>
+                        <option value="35">Sibiu</option>
+                        <option value="36">Suceava</option>
+                        <option value="37">Teleorman</option>
+                        <option value="38">Timis</option>
+                        <option value="39">Tulcea</option>
+                        <option value="40">Vaslui</option>
+                        <option value="41">Valcea</option>
+                        <option value="42">Vrancea</option>
+                    </select>
                 </div>
                 <div class="select">
-                    <select name="slct" id="slct">
-                  <option selected disabled>Alegeti judetul</option>
-                  <option value="1">Alba</option>
-                  <option value="2">Arad</option>
-                  <option value="3">Arges</option>
-                  <option value="4">Bacau</option>
-                  <option value="5">Bihor</option>
-                  <option value="6">Bistrita-Nasaud</option>
-                  <option value="7">Botosani</option>
-                  <option value="8">Brasov</option>
-                  <option value="9">Braila</option>
-                  <option value="10">Bucuresti</option>
-                  <option value="11">Buzau</option>
-                  <option value="12">Caras-Severin</option>
-                  <option value="13">Calarasi</option>
-                  <option value="14">Cluj</option>
-                  <option value="15">Constanta</option>
-                  <option value="16">Covasna</option>
-                  <option value="17">Dambovita</option>
-                  <option value="18">Dolj</option>
-                  <option value="19">Galati</option>
-                  <option value="20">Giurgiu</option>
-                  <option value="21">Gorj</option>
-                  <option value="22">Harghita</option>
-                  <option value="23">Hunedoara</option>
-                  <option value="24">Ialomita</option>
-                  <option value="25">Iasi</option>
-                  <option value="26">Ilfov</option>
-                  <option value="27">Maramures</option>
-                  <option value="28">Mehedinti</option>
-                  <option value="29">Mures</option>
-                  <option value="30">Neamt</option>
-                  <option value="31">Olt</option>
-                  <option value="32">Prahova</option>
-                  <option value="33">Satu Mare</option>
-                  <option value="34">Salaj</option>
-                  <option value="35">Sibiu</option>
-                  <option value="36">Suceava</option>
-                  <option value="37">Teleorman</option>
-                  <option value="38">Timis</option>
-                  <option value="39">Tulcea</option>
-                  <option value="40">Vaslui</option>
-                  <option value="41">Valcea</option>
-                  <option value="42">Vrancea</option>
-                </select>
+                    <select name="slct" id="slct2" onchange='get_judet2()'>
+                        <option selected disabled>Alegeti judetul</option>
+                        <option value="1">Alba</option>
+                        <option value="2">Arad</option>
+                        <option value="3">Arges</option>
+                        <option value="4">Bacau</option>
+                        <option value="5">Bihor</option>
+                        <option value="6">Bistrita</option>
+                        <option value="7">Botosani</option>
+                        <option value="8">Brasov</option>
+                        <option value="9">Braila</option>
+                        <option value="10">Bucuresti</option>
+                        <option value="11">Buzau</option>
+                        <option value="12">Caras</option>
+                        <option value="13">Calarasi</option>
+                        <option value="14">Cluj</option>
+                        <option value="15">Constanta</option>
+                        <option value="16">Covasna</option>
+                        <option value="17">Dambovita</option>
+                        <option value="18">Dolj</option>
+                        <option value="19">Galati</option>
+                        <option value="20">Giurgiu</option>
+                        <option value="21">Gorj</option>
+                        <option value="22">Harghita</option>
+                        <option value="23">Hunedoara</option>
+                        <option value="24">Ialomita</option>
+                        <option value="25">Iasi</option>
+                        <option value="26">Ilfov</option>
+                        <option value="27">Maramures</option>
+                        <option value="28">Mehedinti</option>
+                        <option value="29">Mures</option>
+                        <option value="30">Neamt</option>
+                        <option value="31">Olt</option>
+                        <option value="32">Prahova</option>
+                        <option value="33">SatuMare</option>
+                        <option value="34">Salaj</option>
+                        <option value="35">Sibiu</option>
+                        <option value="36">Suceava</option>
+                        <option value="37">Teleorman</option>
+                        <option value="38">Timis</option>
+                        <option value="39">Tulcea</option>
+                        <option value="40">Vaslui</option>
+                        <option value="41">Valcea</option>
+                        <option value="42">Vrancea</option>
+                    </select>
+                </div>
+                <div class="select">
+                    <select name="slct" id="slct3" onchange='get_criteriu()'>
+                        <option selected disabled>Alegeti criteriul</option>
+                        <option value="1">varste</option>
+                        <option value="2">medii</option>
+                        <option value="3">rata</option>
+                        <option value="4">educatie</option>
+                    </select>
                 </div>
             </div>
-            <button class="compare_btn">Compara!</button>
+            <button class="compare_btn" onclick="Compare()">Compara!</button>
+
+            <script>
+                function get_judet1() {
+                    var element = document.getElementById("slct");
+                    var a = element.options[element.selectedIndex].text
+                    return a;
+                }
+
+                function get_judet2() {
+                    var element = document.getElementById("slct2");
+                    var a = element.options[element.selectedIndex].text
+                    return a;
+                }
+
+                function get_criteriu() {
+                    var element = document.getElementById("slct3");
+                    var a = element.options[element.selectedIndex].text
+                    return a;
+                }
+
+                function Compare() {
+                    jud1 = get_judet1()
+                    jud2 = get_judet2()
+                    crit = get_criteriu()
+                    console.log(jud1, jud2, crit)
+                    var new_url = `/Comparare?criteriu=${crit}&judet1=${jud1}&judet2=${jud2}`
+                    location.assign(new_url)
+                }
+            </script>
         </div>
     </div>
 

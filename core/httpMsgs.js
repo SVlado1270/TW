@@ -100,3 +100,17 @@ exports.show404 = function (req, resp) {
     resp.write('File not found');
     resp.end()
 }
+
+exports.getComparare = function (req, resp) {
+    resp.writeHead(200, { 'Content-Type': 'text/html' })
+    fs.readFile('./Comparare.html', null, function (error, data) {
+        if (error) {
+            resp.writeHead(404);
+            resp.write('File not found');
+        }
+        else {
+            resp.write(data)
+        }
+        resp.end()
+    })
+}

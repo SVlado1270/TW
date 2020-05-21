@@ -77,7 +77,7 @@ function createQuery(numeJudet, criteriu, coloane, luni) {
 }
 
 
-// /api/judet/iasi?filtru=varste&coloane=peste55,sub25,interval25_30&luni=1,2,3
+// /api/judet/iasi?varste&coloane=peste55,sub25,interval25_30&luni=1,2,3
 exports.query = function (req, resp) {
     var criterii = ['educatie', 'varste', 'rata', 'medii']
     var judete = ['IASI', 'BOTOSANI', 'BACAU', 'VASLUI', 'GALATI', 'TULCEA', 'CONSTANTA', 'IALOMITA', 'BRAILA', 'BUCURESTI', 'SATUMARE', 'VRANCEA', 'NEAMT', 'SUCEAVA', 'BISTRITA', 'MARAMURES', 'MURES', 'HARGHITA', 'COVASNA', 'BUZAU', 'PRAHOVA', 'ILFOV', 'DAMBOVITA', 'CARAS', 'BRASOV', 'GIURGIU', 'TELEORMAN', 'OLT', 'DOLJ', 'ALBA', 'MEHEDINTI', 'VALCEA', 'ARGES', 'SIBIU', 'CLUJ', 'SALAJ', 'BIHOR', 'ARAD', 'TIMIS', 'HUNEDOARA', 'CALARASI']
@@ -106,3 +106,38 @@ exports.query = function (req, resp) {
         }
     }
 }
+
+/*
+// api/comparare?criteriu=varste&judet1=IASI&judet2=VASLUI
+
+function getCriteriu(url) {
+    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`) // i just need to parse the args
+    var crit = parsedUrl.searchParams.get('criteriu')
+    if (crit) {
+        return crit.split(',')
+    }
+    return []
+}
+
+function getJudet1(url) {
+    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`) // i just need to parse the args
+    var jud = parsedUrl.searchParams.get('judet1')
+    if (jud) {
+        return jud.split(',')
+    }
+    return []
+}
+
+function getJudet2(url) {
+    const parsedUrl = new URL(`https://www.dummyurl.dummy/${url}`) // i just need to parse the args
+    var jud = parsedUrl.searchParams.get('judet2')
+    if (jud) {
+        return jud.split(',')
+    }
+    return []
+}
+
+function createQuery_comparison(criteriu, jud1, jud2){
+    query = `SELECT * FROM ${criteriu} WHERE `
+
+}*/

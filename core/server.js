@@ -60,6 +60,11 @@ http.createServer(function (req, resp) {
                     }
                 }
             }
+
+            else if (req.url.startsWith('/Comparare')) {
+                httpsMsg.getComparare(req, resp)
+            }
+
             else if (req.url.startsWith('/api/judet')) {
                 jud.query(req, resp)
             }
@@ -68,6 +73,13 @@ http.createServer(function (req, resp) {
     }
 
 
+    //}).listen(settings.webPort, function () {
+    //   console.log("Started listening at: " + settings.webPort)
+
+    //})
+}).on('connection', function (socket) {
+    socket.setTimeout(10000);
 }).listen(settings.webPort, function () {
     console.log("Started listening at: " + settings.webPort)
+
 })

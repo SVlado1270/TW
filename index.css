@@ -131,6 +131,7 @@ h2 {
 .jud_comp {
     display: flex;
     justify-content: space-evenly;
+    width: 100%;
 }
 
 select {
@@ -158,13 +159,31 @@ select::-ms-expand {
 .select {
     position: relative;
     display: flex;
-    width: 20em;
+    width: 40%;
     height: 3em;
     line-height: 3;
     background: rgba(248, 118, 58, 0.993);
     overflow: hidden;
     border-radius: .25em;
     margin-left: 5px;
+}
+
+#crit {
+    width: 20%;
+}
+
+.compare_btn {
+    align-self: center;
+    margin: 0;
+    display: inline-block;
+    padding: 0.3em 1.2em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    background-color: rgba(248, 118, 58, 0.993);
+    text-align: center;
+    transition: all 0.2s;
 }
 
 select {

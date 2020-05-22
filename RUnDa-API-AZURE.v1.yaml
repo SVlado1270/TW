@@ -1,0 +1,1034 @@
+openapi: 3.0.0
+info:
+  title: RUnDa
+  version: '1.0'
+  description: API AZURE - API folosit pentru a lua informatiile despre regiune + API localhost - folosit pentru judete
+servers:
+  - url: 'https://vvv1270.azurewebsites.net/'
+    description: a
+  - url: 'http://localhost:9000'
+    description: b
+paths:
+  '/{nume_judet}':
+    parameters:
+      - schema:
+          type: string
+        name: nume_judet
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                'Exemplu pentru judetul IASI - https://vvv1270.azurewebsites.net/IASI':
+                  value:
+                    - Judet: IASI
+                    - - - id_judet: '110'
+                          luna: '3'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8690
+                          Sub_25_ani: 642
+                          ani_25_29: 226
+                          ani_30_39: 1293
+                          ani_40_49: 2524
+                          ani_50_55: 1737
+                          peste_55_ani: 2268
+                        - id_judet: '153'
+                          luna: '4'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8657
+                          Sub_25_ani: 603
+                          ani_25_29: 230
+                          ani_30_39: 1296
+                          ani_40_49: 2513
+                          ani_50_55: 1750
+                          peste_55_ani: 2265
+                        - id_judet: '196'
+                          luna: '5'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8313
+                          Sub_25_ani: 535
+                          ani_25_29: 214
+                          ani_30_39: 1232
+                          ani_40_49: 2390
+                          ani_50_55: 1735
+                          peste_55_ani: 2207
+                        - id_judet: '239'
+                          luna: '6'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8545
+                          Sub_25_ani: 846
+                          ani_25_29: 226
+                          ani_30_39: 1220
+                          ani_40_49: 2357
+                          ani_50_55: 1698
+                          peste_55_ani: 2198
+                        - id_judet: '24'
+                          luna: '1'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 5248
+                          Sub_25_ani: 427
+                          ani_25_29: 215
+                          ani_30_39: 875
+                          ani_40_49: 1598
+                          ani_50_55: 998
+                          peste_55_ani: 1135
+                        - id_judet: '282'
+                          luna: '7'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8387
+                          Sub_25_ani: 926
+                          ani_25_29: 205
+                          ani_30_39: 1179
+                          ani_40_49: 2272
+                          ani_50_55: 1641
+                          peste_55_ani: 2164
+                        - id_judet: '325'
+                          luna: '9'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8877
+                          Sub_25_ani: 1274
+                          ani_25_29: 212
+                          ani_30_39: 1224
+                          ani_40_49: 2296
+                          ani_50_55: 1674
+                          peste_55_ani: 2197
+                        - id_judet: '368'
+                          luna: '10'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8553
+                          Sub_25_ani: 1281
+                          ani_25_29: 189
+                          ani_30_39: 1147
+                          ani_40_49: 2192
+                          ani_50_55: 1609
+                          peste_55_ani: 2135
+                        - id_judet: '411'
+                          luna: '11'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8242
+                          Sub_25_ani: 1240
+                          ani_25_29: 196
+                          ani_30_39: 1098
+                          ani_40_49: 2130
+                          ani_50_55: 1518
+                          peste_55_ani: 2060
+                        - id_judet: '454'
+                          luna: '12'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8035
+                          Sub_25_ani: 1150
+                          ani_25_29: 175
+                          ani_30_39: 1077
+                          ani_40_49: 2095
+                          ani_50_55: 1507
+                          peste_55_ani: 2031
+                        - id_judet: '67'
+                          luna: '2'
+                          an: 2019
+                          judet: IASI
+                          TOTAL: 8860
+                          Sub_25_ani: 694
+                          ani_25_29: 228
+                          ani_30_39: 1322
+                          ani_40_49: 2544
+                          ani_50_55: 1753
+                          peste_55_ani: 2319
+                      - - id_judet: '110'
+                          luna: '3'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8690
+                          Numar_total_someri_femei: 3735
+                          Numar_total_someri_barbati: 4955
+                          Numar_someri_indemnizati: 899
+                          Numar_someri_neindemnizati: 7791
+                          Rata_somajului: 3.15
+                          Rata_somajului_Feminina: 2.99
+                          Rata_somajului_Masculina: 3.27
+                        - id_judet: '153'
+                          luna: '4'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8657
+                          Numar_total_someri_femei: 3810
+                          Numar_total_someri_barbati: 4847
+                          Numar_someri_indemnizati: 871
+                          Numar_someri_neindemnizati: 7786
+                          Rata_somajului: 2.9
+                          Rata_somajului_Feminina: 2.81
+                          Rata_somajului_Masculina: 2.97
+                        - id_judet: '196'
+                          luna: '6'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8545
+                          Numar_total_someri_femei: 3759
+                          Numar_total_someri_barbati: 4786
+                          Numar_someri_indemnizati: 864
+                          Numar_someri_neindemnizati: 7681
+                          Rata_somajului: 2.78
+                          Rata_somajului_Feminina: 2.74
+                          Rata_somajului_Masculina: 2.81
+                        - id_judet: '239'
+                          luna: '7'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8387
+                          Numar_total_someri_femei: 3756
+                          Numar_total_someri_barbati: 4631
+                          Numar_someri_indemnizati: 831
+                          Numar_someri_neindemnizati: 7556
+                          Rata_somajului: 2.82
+                          Rata_somajului_Feminina: 2.81
+                          Rata_somajului_Masculina: 2.83
+                        - id_judet: '24'
+                          luna: '1'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8961
+                          Numar_total_someri_femei: 3872
+                          Numar_total_someri_barbati: 5089
+                          Numar_someri_indemnizati: 1114
+                          Numar_someri_neindemnizati: 7847
+                          Rata_somajului: 3.04
+                          Rata_somajului_Feminina: 2.92
+                          Rata_somajului_Masculina: 3.14
+                        - id_judet: '282'
+                          luna: '9'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8877
+                          Numar_total_someri_femei: 3978
+                          Numar_total_someri_barbati: 4899
+                          Numar_someri_indemnizati: 917
+                          Numar_someri_neindemnizati: 7960
+                          Rata_somajului: 2.9
+                          Rata_somajului_Feminina: 2.94
+                          Rata_somajului_Masculina: 2.86
+                        - id_judet: '325'
+                          luna: '10'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8553
+                          Numar_total_someri_femei: 3934
+                          Numar_total_someri_barbati: 4619
+                          Numar_someri_indemnizati: 991
+                          Numar_someri_neindemnizati: 7562
+                          Rata_somajului: 3.01
+                          Rata_somajului_Feminina: 3.05
+                          Rata_somajului_Masculina: 2.98
+                        - id_judet: '368'
+                          luna: '11'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8242
+                          Numar_total_someri_femei: 3723
+                          Numar_total_someri_barbati: 4519
+                          Numar_someri_indemnizati: 949
+                          Numar_someri_neindemnizati: 7293
+                          Rata_somajului: 3.09
+                          Rata_somajului_Feminina: 3.12
+                          Rata_somajului_Masculina: 3.06
+                        - id_judet: '410'
+                          luna: '12'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8035
+                          Numar_total_someri_femei: 3632
+                          Numar_total_someri_barbati: 4403
+                          Numar_someri_indemnizati: 962
+                          Numar_someri_neindemnizati: 7073
+                          Rata_somajului: 2.71
+                          Rata_somajului_Feminina: 2.66
+                          Rata_somajului_Masculina: 2.75
+                        - id_judet: '67'
+                          luna: '2'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8860
+                          Numar_total_someri_femei: 3765
+                          Numar_total_someri_barbati: 5095
+                          Numar_someri_indemnizati: 1025
+                          Numar_someri_neindemnizati: 7835
+                          Rata_somajului: 3.37
+                          Rata_somajului_Feminina: 3.22
+                          Rata_somajului_Masculina: 3.49
+                      - - id_judet: '110'
+                          luna: '3'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8690
+                          fara_studii: 707
+                          invatamant_primar: 1824
+                          invatamant_gimnazial: 3114
+                          invatamant_liceal: 594
+                          invatamant_posticeal: 62
+                          invatamant_profesional/arte_si_meserii: 2114
+                          invatamant_universitar: 275
+                        - id_judet: '153'
+                          luna: '4'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8657
+                          fara_studii: 721
+                          invatamant_primar: 1820
+                          invatamant_gimnazial: 3096
+                          invatamant_liceal: 603
+                          invatamant_posticeal: 62
+                          invatamant_profesional/arte_si_meserii: 2058
+                          invatamant_universitar: 297
+                        - id_judet: '196'
+                          luna: '5'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8313
+                          fara_studii: 674
+                          invatamant_primar: 1735
+                          invatamant_gimnazial: 2961
+                          invatamant_liceal: 583
+                          invatamant_posticeal: 57
+                          invatamant_profesional/arte_si_meserii: 2000
+                          invatamant_universitar: 303
+                        - id_judet: '239'
+                          luna: '6'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8545
+                          fara_studii: 696
+                          invatamant_primar: 1708
+                          invatamant_gimnazial: 2907
+                          invatamant_liceal: 939
+                          invatamant_posticeal: 47
+                          invatamant_profesional/arte_si_meserii: 1949
+                          invatamant_universitar: 299
+                        - id_judet: '24'
+                          luna: '1'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8961
+                          fara_studii: 706
+                          invatamant_primar: 1767
+                          invatamant_gimnazial: 3068
+                          invatamant_liceal: 833
+                          invatamant_posticeal: 68
+                          invatamant_profesional/arte_si_meserii: 2234
+                          invatamant_universitar: 285
+                        - id_judet: '282'
+                          luna: '7'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8387
+                          fara_studii: 630
+                          invatamant_primar: 1641
+                          invatamant_gimnazial: 2850
+                          invatamant_liceal: 1050
+                          invatamant_posticeal: 45
+                          invatamant_profesional/arte_si_meserii: 1875
+                          invatamant_universitar: 296
+                        - id_judet: '325'
+                          luna: '9'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8877
+                          fara_studii: 611
+                          invatamant_primar: 1639
+                          invatamant_gimnazial: 2827
+                          invatamant_liceal: 1071
+                          invatamant_posticeal: 70
+                          invatamant_profesional/arte_si_meserii: 2307
+                          invatamant_universitar: 352
+                        - id_judet: '368'
+                          luna: '10'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8553
+                          fara_studii: 599
+                          invatamant_primar: 1563
+                          invatamant_gimnazial: 2703
+                          invatamant_liceal: 997
+                          invatamant_posticeal: 84
+                          invatamant_profesional/arte_si_meserii: 2256
+                          invatamant_universitar: 351
+                        - id_judet: '411'
+                          luna: '11'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8242
+                          fara_studii: 564
+                          invatamant_primar: 1539
+                          invatamant_gimnazial: 2605
+                          invatamant_liceal: 957
+                          invatamant_posticeal: 81
+                          invatamant_profesional/arte_si_meserii: 2159
+                          invatamant_universitar: 337
+                        - id_judet: '454'
+                          luna: '12'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8035
+                          fara_studii: 546
+                          invatamant_primar: 1502
+                          invatamant_gimnazial: 2598
+                          invatamant_liceal: 887
+                          invatamant_posticeal: 74
+                          invatamant_profesional/arte_si_meserii: 2107
+                          invatamant_universitar: 321
+                        - id_judet: '67'
+                          luna: '2'
+                          an: 2019
+                          JUDET: IASI
+                          Total_someri_din_care: 8860
+                          fara_studii: 698
+                          invatamant_primar: 1825
+                          invatamant_gimnazial: 3146
+                          invatamant_liceal: 643
+                          invatamant_posticeal: 65
+                          invatamant_profesional/arte_si_meserii: 2214
+                          invatamant_universitar: 269
+                      - - id_judet: '110'
+                          luna: '3'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8690
+                          Numar_total_someri_femei: 3735
+                          Numar_total_someri_barbati: 4955
+                          Numar_someri_indemnizati: 899
+                          Numar_someri_neindemnizati: 7791
+                          Rata_somajului: 3.15
+                          Rata_somajului_Feminina: 2.99
+                          Rata_somajului_Masculina: 3.27
+                        - id_judet: '153'
+                          luna: '4'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8657
+                          Numar_total_someri_femei: 3810
+                          Numar_total_someri_barbati: 4847
+                          Numar_someri_indemnizati: 871
+                          Numar_someri_neindemnizati: 7786
+                          Rata_somajului: 2.9
+                          Rata_somajului_Feminina: 2.81
+                          Rata_somajului_Masculina: 2.97
+                        - id_judet: '196'
+                          luna: '6'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8545
+                          Numar_total_someri_femei: 3759
+                          Numar_total_someri_barbati: 4786
+                          Numar_someri_indemnizati: 864
+                          Numar_someri_neindemnizati: 7681
+                          Rata_somajului: 2.78
+                          Rata_somajului_Feminina: 2.74
+                          Rata_somajului_Masculina: 2.81
+                        - id_judet: '239'
+                          luna: '7'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8387
+                          Numar_total_someri_femei: 3756
+                          Numar_total_someri_barbati: 4631
+                          Numar_someri_indemnizati: 831
+                          Numar_someri_neindemnizati: 7556
+                          Rata_somajului: 2.82
+                          Rata_somajului_Feminina: 2.81
+                          Rata_somajului_Masculina: 2.83
+                        - id_judet: '24'
+                          luna: '1'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8961
+                          Numar_total_someri_femei: 3872
+                          Numar_total_someri_barbati: 5089
+                          Numar_someri_indemnizati: 1114
+                          Numar_someri_neindemnizati: 7847
+                          Rata_somajului: 3.04
+                          Rata_somajului_Feminina: 2.92
+                          Rata_somajului_Masculina: 3.14
+                        - id_judet: '282'
+                          luna: '9'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8877
+                          Numar_total_someri_femei: 3978
+                          Numar_total_someri_barbati: 4899
+                          Numar_someri_indemnizati: 917
+                          Numar_someri_neindemnizati: 7960
+                          Rata_somajului: 2.9
+                          Rata_somajului_Feminina: 2.94
+                          Rata_somajului_Masculina: 2.86
+                        - id_judet: '325'
+                          luna: '10'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8553
+                          Numar_total_someri_femei: 3934
+                          Numar_total_someri_barbati: 4619
+                          Numar_someri_indemnizati: 991
+                          Numar_someri_neindemnizati: 7562
+                          Rata_somajului: 3.01
+                          Rata_somajului_Feminina: 3.05
+                          Rata_somajului_Masculina: 2.98
+                        - id_judet: '368'
+                          luna: '11'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8242
+                          Numar_total_someri_femei: 3723
+                          Numar_total_someri_barbati: 4519
+                          Numar_someri_indemnizati: 949
+                          Numar_someri_neindemnizati: 7293
+                          Rata_somajului: 3.09
+                          Rata_somajului_Feminina: 3.12
+                          Rata_somajului_Masculina: 3.06
+                        - id_judet: '410'
+                          luna: '12'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8035
+                          Numar_total_someri_femei: 3632
+                          Numar_total_someri_barbati: 4403
+                          Numar_someri_indemnizati: 962
+                          Numar_someri_neindemnizati: 7073
+                          Rata_somajului: 2.71
+                          Rata_somajului_Feminina: 2.66
+                          Rata_somajului_Masculina: 2.75
+                        - id_judet: '67'
+                          luna: '2'
+                          an: 2019
+                          JUDET: IASI
+                          Numar_total_someri: 8860
+                          Numar_total_someri_femei: 3765
+                          Numar_total_someri_barbati: 5095
+                          Numar_someri_indemnizati: 1025
+                          Numar_someri_neindemnizati: 7835
+                          Rata_somajului: 3.37
+                          Rata_somajului_Feminina: 3.22
+                          Rata_somajului_Masculina: 3.49
+      operationId: get-nume_judet
+      description: Returneaza toate datele despre judetul introdus
+  '/{nume_judet}/{criteriu}':
+    parameters:
+      - schema:
+          type: string
+        name: nume_judet
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: criteriu
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                'Exemplu pentru judetul IASI - https://vvv1270.azurewebsites.net/IASI/varste':
+                  value:
+                    - id_judet: '110'
+                      luna: '3'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8690
+                      Sub_25_ani: 642
+                      ani_25_29: 226
+                      ani_30_39: 1293
+                      ani_40_49: 2524
+                      ani_50_55: 1737
+                      peste_55_ani: 2268
+                    - id_judet: '153'
+                      luna: '4'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8657
+                      Sub_25_ani: 603
+                      ani_25_29: 230
+                      ani_30_39: 1296
+                      ani_40_49: 2513
+                      ani_50_55: 1750
+                      peste_55_ani: 2265
+                    - id_judet: '196'
+                      luna: '5'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8313
+                      Sub_25_ani: 535
+                      ani_25_29: 214
+                      ani_30_39: 1232
+                      ani_40_49: 2390
+                      ani_50_55: 1735
+                      peste_55_ani: 2207
+                    - id_judet: '239'
+                      luna: '6'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8545
+                      Sub_25_ani: 846
+                      ani_25_29: 226
+                      ani_30_39: 1220
+                      ani_40_49: 2357
+                      ani_50_55: 1698
+                      peste_55_ani: 2198
+                    - id_judet: '24'
+                      luna: '1'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 5248
+                      Sub_25_ani: 427
+                      ani_25_29: 215
+                      ani_30_39: 875
+                      ani_40_49: 1598
+                      ani_50_55: 998
+                      peste_55_ani: 1135
+                    - id_judet: '282'
+                      luna: '7'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8387
+                      Sub_25_ani: 926
+                      ani_25_29: 205
+                      ani_30_39: 1179
+                      ani_40_49: 2272
+                      ani_50_55: 1641
+                      peste_55_ani: 2164
+                    - id_judet: '325'
+                      luna: '9'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8877
+                      Sub_25_ani: 1274
+                      ani_25_29: 212
+                      ani_30_39: 1224
+                      ani_40_49: 2296
+                      ani_50_55: 1674
+                      peste_55_ani: 2197
+                    - id_judet: '368'
+                      luna: '10'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8553
+                      Sub_25_ani: 1281
+                      ani_25_29: 189
+                      ani_30_39: 1147
+                      ani_40_49: 2192
+                      ani_50_55: 1609
+                      peste_55_ani: 2135
+                    - id_judet: '411'
+                      luna: '11'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8242
+                      Sub_25_ani: 1240
+                      ani_25_29: 196
+                      ani_30_39: 1098
+                      ani_40_49: 2130
+                      ani_50_55: 1518
+                      peste_55_ani: 2060
+                    - id_judet: '454'
+                      luna: '12'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8035
+                      Sub_25_ani: 1150
+                      ani_25_29: 175
+                      ani_30_39: 1077
+                      ani_40_49: 2095
+                      ani_50_55: 1507
+                      peste_55_ani: 2031
+                    - id_judet: '67'
+                      luna: '2'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8860
+                      Sub_25_ani: 694
+                      ani_25_29: 228
+                      ani_30_39: 1322
+                      ani_40_49: 2544
+                      ani_50_55: 1753
+                      peste_55_ani: 2319
+      operationId: get-nume_judet-criteriu
+      description: Returneaza informatiile despre un judet in functie de criteriul introdus
+  '/Regiune/{nume_regiune}':
+    parameters:
+      - schema:
+          type: string
+        name: nume_regiune
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                'https://vvv1270.azurewebsites.net/Regiune/Vest':
+                  value:
+                    - judet: ARAD
+                      luna: '1'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3022
+                    - judet: ARAD
+                      luna: '2'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2937
+                    - judet: ARAD
+                      luna: '3'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2797
+                    - judet: ARAD
+                      luna: '4'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2563
+                    - judet: ARAD
+                      luna: '6'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2882
+                    - judet: ARAD
+                      luna: '7'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3112
+                    - judet: ARAD
+                      luna: '9'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3255
+                    - judet: ARAD
+                      luna: '10'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3193
+                    - judet: ARAD
+                      luna: '11'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3211
+                    - judet: ARAD
+                      luna: '12'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2610
+                    - judet: CARAS
+                      luna: '1'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3540
+                    - judet: CARAS
+                      luna: '2'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3523
+                    - judet: CARAS
+                      luna: '3'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3512
+                    - judet: CARAS
+                      luna: '4'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3200
+                    - judet: CARAS
+                      luna: '6'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3130
+                    - judet: CARAS
+                      luna: '7'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3266
+                    - judet: CARAS
+                      luna: '9'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3398
+                    - judet: CARAS
+                      luna: '10'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3389
+                    - judet: CARAS
+                      luna: '11'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3369
+                    - judet: CARAS
+                      luna: '12'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3345
+                    - judet: HUNEDOARA
+                      luna: '1'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 6423
+                    - judet: HUNEDOARA
+                      luna: '2'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 6340
+                    - judet: HUNEDOARA
+                      luna: '3'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 6227
+                    - judet: HUNEDOARA
+                      luna: '4'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5798
+                    - judet: HUNEDOARA
+                      luna: '6'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5614
+                    - judet: HUNEDOARA
+                      luna: '7'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5787
+                    - judet: HUNEDOARA
+                      luna: '9'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5180
+                    - judet: HUNEDOARA
+                      luna: '10'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5040
+                    - judet: HUNEDOARA
+                      luna: '11'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5183
+                    - judet: HUNEDOARA
+                      luna: '12'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 5157
+                    - judet: TIMIS
+                      luna: '1'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2867
+                    - judet: TIMIS
+                      luna: '2'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2781
+                    - judet: TIMIS
+                      luna: '3'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2573
+                    - judet: TIMIS
+                      luna: '4'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2421
+                    - judet: TIMIS
+                      luna: '6'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2920
+                    - judet: TIMIS
+                      luna: '7'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2944
+                    - judet: TIMIS
+                      luna: '9'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 3189
+                    - judet: TIMIS
+                      luna: '10'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2925
+                    - judet: TIMIS
+                      luna: '11'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2832
+                    - judet: TIMIS
+                      luna: '12'
+                      an: 2019
+                      NUMAR_TOTAL_SOMERI: 2775
+      operationId: get-Regiune-nume_regiune
+      description: |-
+        Returneaza media somerilor pe anul 2019 pentru toate judetele din regiunea introdusa
+        Nume valide regiuni : Nord-Est OR Nord-Vest OR Bucuresti-Ilfov OR Centru OR VEST OR Sud-Vest-Oltenia OR Sud-Muntenia OR Sud-Est
+  '/api/judet/{nume_judet}':
+    parameters:
+      - schema:
+          type: string
+        name: nume_judet
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                'http://localhost:9000/api/judet/IASI?varste':
+                  value:
+                    - id_judet: '110'
+                      luna: '3'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8690
+                      Sub_25_ani: 642
+                      ani_25_29: 226
+                      ani_30_39: 1293
+                      ani_40_49: 2524
+                      ani_50_55: 1737
+                      peste_55_ani: 2268
+                    - id_judet: '153'
+                      luna: '4'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8657
+                      Sub_25_ani: 603
+                      ani_25_29: 230
+                      ani_30_39: 1296
+                      ani_40_49: 2513
+                      ani_50_55: 1750
+                      peste_55_ani: 2265
+                    - id_judet: '196'
+                      luna: '5'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8313
+                      Sub_25_ani: 535
+                      ani_25_29: 214
+                      ani_30_39: 1232
+                      ani_40_49: 2390
+                      ani_50_55: 1735
+                      peste_55_ani: 2207
+                    - id_judet: '239'
+                      luna: '6'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8545
+                      Sub_25_ani: 846
+                      ani_25_29: 226
+                      ani_30_39: 1220
+                      ani_40_49: 2357
+                      ani_50_55: 1698
+                      peste_55_ani: 2198
+                    - id_judet: '24'
+                      luna: '1'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 5248
+                      Sub_25_ani: 427
+                      ani_25_29: 215
+                      ani_30_39: 875
+                      ani_40_49: 1598
+                      ani_50_55: 998
+                      peste_55_ani: 1135
+                    - id_judet: '282'
+                      luna: '7'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8387
+                      Sub_25_ani: 926
+                      ani_25_29: 205
+                      ani_30_39: 1179
+                      ani_40_49: 2272
+                      ani_50_55: 1641
+                      peste_55_ani: 2164
+                    - id_judet: '325'
+                      luna: '9'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8877
+                      Sub_25_ani: 1274
+                      ani_25_29: 212
+                      ani_30_39: 1224
+                      ani_40_49: 2296
+                      ani_50_55: 1674
+                      peste_55_ani: 2197
+                    - id_judet: '368'
+                      luna: '10'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8553
+                      Sub_25_ani: 1281
+                      ani_25_29: 189
+                      ani_30_39: 1147
+                      ani_40_49: 2192
+                      ani_50_55: 1609
+                      peste_55_ani: 2135
+                    - id_judet: '411'
+                      luna: '11'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8242
+                      Sub_25_ani: 1240
+                      ani_25_29: 196
+                      ani_30_39: 1098
+                      ani_40_49: 2130
+                      ani_50_55: 1518
+                      peste_55_ani: 2060
+                    - id_judet: '454'
+                      luna: '12'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8035
+                      Sub_25_ani: 1150
+                      ani_25_29: 175
+                      ani_30_39: 1077
+                      ani_40_49: 2095
+                      ani_50_55: 1507
+                      peste_55_ani: 2031
+                    - id_judet: '67'
+                      luna: '2'
+                      an: 2019
+                      judet: IASI
+                      TOTAL: 8860
+                      Sub_25_ani: 694
+                      ani_25_29: 228
+                      ani_30_39: 1322
+                      ani_40_49: 2544
+                      ani_50_55: 1753
+                      peste_55_ani: 2319
+            application/javascript:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-api-judet-nume_judet
+      description: |-
+        !!!!!!! IN LOC DE https://vvv1270.azurewebsites.net/ URL-ul ESTE localhost:9000/ PENTRU ACEST ENDPOINT
+        Returneaza toate datele despre judetul introdus in functie de criteriul ales
+        criteriu poate fi inlocuit cu criteriul dorit (medie SAU educatie SAU varste SAU rata)
+        EXEMPLU: http://localhost:9000/api/judet/IASI?educatie
+      parameters:
+        - schema:
+            type: array
+          in: query
+          description: 'Daca este folosit va returna informatiile doar pentru lunile respective. EXEMPLU: /api/judet/IASI?varste&luni=1,2,3'
+          name: luni
+        - schema:
+            type: array
+          in: query
+          name: coloane
+          description: |-
+            Daca este folosit va returna informatii doar pentru coloanele introduse (COLOANELE TREBUIE SA AIBA ACELASI NUME CU CELE DIN DB)
+            EXEMPLU: /api/judet/IASI?varste&coloane=Sub_25_ani,peste_55_ani
+        - schema:
+            type: string
+          in: query
+          name: criteriu
+          description: 'Nu este chiar un query parameter. Acesta va fi inlocuit direct cu varste SAU medii SAU rata SAU educatie. EXEMPLU : EXEMPLU: http://localhost:9000/api/judet/IASI?educatie'
+components:
+  schemas: {}

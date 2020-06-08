@@ -65,6 +65,159 @@
                         <button id="medii" onclick="func_medii()">Medii</button>
                         <button id="rata" onclick="func_rata()">Rata</button>
                         <button id="csv" onclick="get_csv_judet()">DOWNLOAD CSV</button>
+                        <div class="lista_luni" id="first_luni">
+                            <div class="container_check">
+                                <label for="l_ianuarie">Ianuarie </label>
+                                <input type="checkbox" id="l_ianuarie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_februarie">Februarie </label>
+                                <input type="checkbox" id="l_februarie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_martie">Martie </label>
+                                <input type="checkbox" id="l_martie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_aprilie">Aprilie </label>
+                                <input type="checkbox" id="l_aprilie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_mai">Mai </label>
+                                <input type="checkbox" id="l_mai">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_iunie">Iunie </label>
+                                <input type="checkbox" id="l_iunie">
+                            </div>
+                        </div>
+                        <div class="lista_luni">
+                            <div class="container_check">
+                                <label for="l_iulie">Iulie </label>
+                                <input type="checkbox" id="l_iulie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_august">August </label>
+                                <input type="checkbox" id="l_august">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_septembrie">Septembrie </label>
+                                <input type="checkbox" id="l_septembrie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_octombrie">Octombrie </label>
+                                <input type="checkbox" id="l_octombrie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_noiembrie">Noiembrie </label>
+                                <input type="checkbox" id="l_noiembrie">
+                            </div>
+                            <div class="container_check">
+                                <label for="l_decembrie">Decembrie </label>
+                                <input type="checkbox" id="l_decembrie">
+                            </div>
+                        </div>
+                        <button class="filter_btn" onclick="Filter()">Filtreaza</button>
+
+                        <script>
+                            function Filter() {
+
+                                function updateLuni(url, newVal) {
+                                    var temp = url.split('?');
+                                    var url1 = temp[0];
+                                    var url2 = temp[1];
+                                    var si = '';
+                                    var newArgumente = '';
+                                    var argumente = url2.split('&');
+                                    for (arg of argumente) {
+                                        if (arg.split('=')[0] != 'luni') {
+                                            newArgumente = newArgumente + si + arg;
+                                            si = '&';
+                                        }
+                                    }
+                                    var newUrl = url1 + '?' + newArgumente + '&luni=' + newVal;
+                                    return newUrl;
+
+                                }
+
+                                var ian = document.getElementById("l_ianuarie");
+                                var feb = document.getElementById("l_februarie");
+                                var mar = document.getElementById("l_martie");
+                                var apr = document.getElementById("l_aprilie");
+                                var may = document.getElementById("l_mai");
+                                var iun = document.getElementById("l_iunie");
+                                var iul = document.getElementById("l_iulie");
+                                var aug = document.getElementById("l_august");
+                                var sep = document.getElementById("l_septembrie");
+                                var oct = document.getElementById("l_octombrie");
+                                var nov = document.getElementById("l_noiembrie");
+                                var dec = document.getElementById("l_decembrie");
+                                var url = window.location;
+                                url += '';
+                                var criteria = url.split('?')[1];
+                                if (!criteria) {
+                                    url += '?varste';
+                                }
+                                var luni = '';
+                                var filtering = 0;
+                                if (ian.checked == true) {
+                                    luni += '1,';
+                                    filtering = 1;
+                                }
+                                if (feb.checked == true) {
+                                    luni += '2,';
+                                    filtering = 1;
+                                }
+                                if (mar.checked == true) {
+                                    luni += '3,';
+                                    filtering = 1;
+                                }
+                                if (apr.checked == true) {
+                                    luni += '4,';
+                                    filtering = 1;
+                                }
+                                if (may.checked == true) {
+                                    luni += '5,';
+                                    filtering = 1;
+                                }
+                                if (iun.checked == true) {
+                                    luni += '6,';
+                                    filtering = 1;
+                                }
+                                if (iul.checked == true) {
+                                    luni += '7,';
+                                    filtering = 1;
+                                }
+                                if (aug.checked == true) {
+                                    luni += '8,';
+                                    filtering = 1;
+                                }
+                                if (sep.checked == true) {
+                                    luni += '9,';
+                                    filtering = 1;
+                                }
+                                if (oct.checked == true) {
+                                    luni += '10,';
+                                    filtering = 1;
+                                }
+                                if (nov.checked == true) {
+                                    luni += '11,';
+                                    filtering = 1;
+                                }
+                                if (dec.checked == true) {
+                                    luni += '12,';
+                                    filtering = 1;
+                                }
+                                if (filtering) {
+                                    luni = luni.substring(0, luni.length - 1); //pentru a elimina ultima virgula
+                                    var newLocation = updateLuni(url, luni);
+                                    location.assign(newLocation);
+                                } else {
+                                    alert('Selectati cel putin o luna.');
+                                }
+                            }
+                        </script>
+
                         <h2 style="margin-top: 7vh;">BarChart</h2>
                         <div id="bar" style=" width:90%; height:70%; margin-left:1vw; ">
                             <div class="container">
@@ -838,7 +991,7 @@
                                 if (luni.length) {
                                     LUNI = createLabel(luni[0].split(','))
                                 } else
-                                LUNI = ['Martie', 'Aprilie', 'Mai', 'Iunie', 'Ianuarie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', 'Februarie']
+                                    LUNI = ['Martie', 'Aprilie', 'Mai', 'Iunie', 'Ianuarie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', 'Februarie']
 
                                 if (coloane2.length) {
                                     coloane = coloane2
@@ -1463,7 +1616,7 @@
                                 if (luni.length) {
                                     LUNI = createLabel(luni[0].split(','))
                                 } else
-                                LUNI = ['Martie', 'Aprilie', 'Mai', 'Iunie', 'Ianuarie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', 'Februarie']
+                                    LUNI = ['Martie', 'Aprilie', 'Mai', 'Iunie', 'Ianuarie', 'Iulie', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie', 'Februarie']
 
                                 if (coloane2.length) {
                                     coloane = coloane2

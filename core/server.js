@@ -5,7 +5,7 @@ var httpsMsg = require('.//httpMsgs')
 var url = require('url')
 
 
-http.createServer(function (req, resp) {
+http.createServer(function(req, resp) {
 
     const requestUrl = url.parse(req.url)
     const path = requestUrl.pathname
@@ -17,23 +17,17 @@ http.createServer(function (req, resp) {
         case "GET":
             if (req.url === '/') {
                 httpsMsg.showHome(req, resp)
-            }
-            else if (req.url.match("\.css$")) {
+            } else if (req.url.match("\.css$")) {
                 httpsMsg.getCss(req, resp)
-            }
-            else if (req.url.match("\.svg$")) {
+            } else if (req.url.match("\.svg$")) {
                 httpsMsg.getSvg(req, resp)
-            }
-            else if (req.url.match("\.js$")) {
+            } else if (req.url.match("\.js$")) {
                 httpsMsg.getJs(req, resp)
-            }
-            else if (req.url.match("\.png$")) {
+            } else if (req.url.match("\.png$")) {
                 httpsMsg.getPng(req, resp)
-            }
-            else if (req.url.match("\.html")) {
+            } else if (req.url.match("\.html")) {
                 httpsMsg.getHtml(req, resp)
-            }
-            else if (req.url.startsWith('/judet')) {
+            } else if (req.url.startsWith('/judet')) {
                 //jud.getList(req, resp);
 
                 if (req.url === '/judet') {
@@ -46,8 +40,7 @@ http.createServer(function (req, resp) {
                     }
                 }
 
-            }
-            else if (req.url.startsWith('/regiune')) {
+            } else if (req.url.startsWith('/regiune')) {
 
                 if (req.url === '/regiune') {
                     httpsMsg.show404(req, resp)
@@ -59,17 +52,13 @@ http.createServer(function (req, resp) {
                         console.log('a')
                     }
                 }
-            }
-
-            else if (req.url.startsWith('/Comparare')) {
+            } else if (req.url.startsWith('/Comparare')) {
                 httpsMsg.getComparare(req, resp)
-            }
-
-            else if (req.url.startsWith('/api/judet')) {
+            } else if (req.url.startsWith('/Reg_comp')) {
+                httpsMsg.getRegComp(req, resp)
+            } else if (req.url.startsWith('/api/judet')) {
                 jud.query(req, resp)
-            }
-
-            else if (req.url === '/ScholarlyReport') {
+            } else if (req.url === '/ScholarlyReport') {
                 httpsMsg.showReport(req, resp)
             }
 
@@ -81,9 +70,9 @@ http.createServer(function (req, resp) {
     //   console.log("Started listening at: " + settings.webPort)
 
     //})
-}).on('connection', function (socket) {
+}).on('connection', function(socket) {
     socket.setTimeout(10000);
-}).listen(settings.webPort, function () {
+}).listen(settings.webPort, function() {
     console.log("Started listening at: " + settings.webPort)
 
 })

@@ -141,21 +141,24 @@ h2 {
     top: 0px;
     bottom: 0;
     left: 0;
-    right: -17px;
+    right: 0;
     overflow-y: scroll;
     overflow-x: hidden;
     align-self: center;
-    margin-left: 3vw;
-    margin-top: 30px;
+    margin-left: 0;
+    margin-top: 0;
 }
 
 li {
-    margin-bottom: -60px;
-    margin-left: -60px;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 100%;
 }
 
 ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 #bar {
@@ -169,6 +172,21 @@ ul {
 
 #radar {
     width: 38vw;
+}
+
+#lista_luni {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.container_check {
+    width: 16.666%;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0.2em;
 }
 
 

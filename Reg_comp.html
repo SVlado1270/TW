@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="Reg_comp.css">
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/js/8.0.1/anychart-pie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="reg_comp_functions.js"></script>
+    <title>Compara Regiunile</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header" style="background-color: #8c7ce92a;" style="position: relative;">
+            <h1>Compararea Regiunilor</h1>
+            <div class="header_btns">
+                <button onclick="updateChart_type(window.location,'bar')">BarChart</button>
+                <button onclick="updateChart_type(window.location,'pie')">PieChart</button>
+                <button onclick="updateChart_type(window.location,'radar')">RadarChart</button>
+            </div>
+            <div>
+                <a href="./index.html"><img src="MAPABUNA.svg" style="filter: sepia(65%); width:15%; margin-top: -20vh; position: aboslute;"></a>
+            </div>
+        </div>
+
+
+        <div class="compare-area1" style="display: inline-block;">
+            <div style=" width:90%; height:70%; margin-left:1vw; ">
+                <div class="container">
+                    <canvas id="chart1" width="700"></canvas>
+                </div>
+                <script>
+                    var currentLocation = window.location;
+
+                    var reg1 = getRegiune1(currentLocation.href);
+                    var type = getChart_type(currentLocation.href);
+                    var per = getPerioada(currentLocation.href);
+
+                    var url = 'https://vvv1270.azurewebsites.net/Regiune/' + reg1;
+
+                    console.log(url)
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var temp = []
+                            var rez = []
+                            var counter = 1;
+                            var json = JSON.parse(this.response);
+
+
+                            for (var i = 0; i < json.length; i++) {
+                                if (counter % 10) {
+                                    temp.push(json[i])
+                                } else {
+                                    temp.push(json[i])
+                                    rez.push(temp)
+                                    temp = []
+                                }
+                                counter++
+                            }
+
+
+                            var total = []
+                            var lbl = '';
+                            if (per == "primajum") {
+                                lbl = 'Medie someri in prima jumatate 2019';
+                                for (var i = 0; i < rez.length; i++) {
+                                    var temp_result = 0;
+                                    for (var j = 0; j < rez[i].length; j++) {
+                                        if (rez[i][j].luna == "1" || rez[i][j].luna == "2" || rez[i][j].luna == "3" || rez[i][j].luna == "4" || rez[i][j].luna == "5" || rez[i][j].luna == "6") {
+                                            temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+                                        }
+                                    }
+                                    total.push(temp_result / 10)
+                                }
+                            }
+                            if (per == "adouajum") {
+                                lbl = 'Medie someri in a doua jumatate 2019';
+                                for (var i = 0; i < rez.length; i++) {
+                                    var temp_result = 0;
+                                    for (var j = 0; j < rez[i].length; j++) {
+                                        if (rez[i][j].luna == "7" || rez[i][j].luna == "8" || rez[i][j].luna == "9" || rez[i][j].luna == "10" || rez[i][j].luna == "11" || rez[i][j].luna == "12") {
+                                            temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+                                        }
+                                    }
+                                    total.push(temp_result / 10)
+                                }
+                            }
+                            if (per == "totanul") {
+                                lbl = 'Medie total someri 2019';
+                                for (var i = 0; i < rez.length; i++) {
+                                    var temp_result = 0;
+                                    for (var j = 0; j < rez[i].length; j++) {
+                                        temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+                                    }
+                                    total.push(temp_result / 10)
+                                }
+                            }
+                            var JUDETE = []
+                            for (var i = 0; i < rez.length; i++)
+                                JUDETE.push(rez[i][0].judet)
+
+                            console.log(JUDETE)
+                            var ctx = document.getElementById('chart1').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: type,
+                                data: {
+                                    labels: JUDETE,
+                                    datasets: [{
+                                        label: lbl,
+                                        data: total,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(123, 98, 50, 0.2)',
+                                            'rgba(0,0,139, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(255, 159, 64, 1)',
+                                            'rgba(123, 98, 50, 1)',
+                                            'rgba(0,0,139, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    legend: {
+                                        labels: {
+                                            generateLabels: function(chart) {
+                                                labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                return labels;
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    };
+                    xhttp.open("GET", url, false);
+                    xhttp.send();
+                </script>
+            </div>
+        </div>
+
+
+        <div class="compare-area2" style="display: inline-block;">
+            <div style=" width:90%; height:70%; margin-left:1vw; ">
+                <div class="container">
+                    <canvas id="chart2" width="700"></canvas>
+                </div>
+                <script>
+                    var currentLocation = window.location;
+
+                    var reg2 = getRegiune2(currentLocation.href);
+                    var type = getChart_type(currentLocation.href);
+
+                    var url = 'https://vvv1270.azurewebsites.net/Regiune/' + reg2;
+
+
+                    console.log(url)
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var temp = []
+                            var rez = []
+                            var counter = 1;
+                            var json = JSON.parse(this.response);
+                            for (var i = 0; i < json.length; i++) {
+                                if (counter % 10) {
+                                    temp.push(json[i])
+                                } else {
+                                    temp.push(json[i])
+                                    rez.push(temp)
+                                    temp = []
+                                }
+                                counter++
+                            }
+                            var total = []
+                            var lbl = '';
+                            if (per == "primajum") {
+                                lbl = 'Medie someri in prima jumatate 2019';
+                                for (var i = 0; i < rez.length; i++) {
+                                    var temp_result = 0;
+                                    for (var j = 0; j < rez[i].length; j++) {
+                                        if (rez[i][j].luna == "1" || rez[i][j].luna == "2" || rez[i][j].luna == "3" || rez[i][j].luna == "4" || rez[i][j].luna == "5" || rez[i][j].luna == "6") {
+                                            temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+                                        }
+                                    }
+                                    total.push(temp_result / 10)
+                                }
+                            }
+                            if (per == "adouajum") {
+                                lbl = 'Medie someri in a doua jumatate 2019';
+                                for (var i = 0; i < rez.length; i++) {
+                                    var temp_result = 0;
+                                    for (var j = 0; j < rez[i].length; j++) {
+                                        if (rez[i][j].luna == "7" || rez[i][j].luna == "8" || rez[i][j].luna == "9" || rez[i][j].luna == "10" || rez[i][j].luna == "11" || rez[i][j].luna == "12") {
+                                            temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+                                        }
+                                    }
+                                    total.push(temp_result / 10)
+                                }
+                            }
+                            if (per == "totanul") {
+                                lbl = 'Medie total someri 2019';
+                                for (var i = 0; i < rez.length; i++) {
+                                    var temp_result = 0;
+                                    for (var j = 0; j < rez[i].length; j++) {
+                                        temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
+                                    }
+                                    total.push(temp_result / 10)
+                                }
+                            }
+                            var JUDETE = []
+                            for (var i = 0; i < rez.length; i++)
+                                JUDETE.push(rez[i][0].judet)
+
+                            console.log(JUDETE)
+                            var ctx = document.getElementById('chart2').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: type,
+                                data: {
+                                    labels: JUDETE,
+                                    datasets: [{
+                                        label: lbl,
+                                        data: total,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(123, 98, 50, 0.2)',
+                                            'rgba(0,0,139, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(255, 159, 64, 1)',
+                                            'rgba(123, 98, 50, 1)',
+                                            'rgba(0,0,139, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    legend: {
+                                        labels: {
+                                            generateLabels: function(chart) {
+                                                labels = Chart.defaults.global.legend.labels.generateLabels(chart);
+                                                labels[0].fillStyle = 'rgba(255, 99, 132, 0.2)';
+                                                labels[0].strokeStyle = 'rgba(255, 99, 132, 0.2)';
+                                                return labels;
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    };
+                    xhttp.open("GET", url, false);
+                    xhttp.send();
+                </script>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

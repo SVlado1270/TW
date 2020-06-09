@@ -54,6 +54,7 @@ function updateChart_type(url, newVal) {
 }
 
 function updatePerioada(url, newVal) {
+    url += '';
     var temp = url.split('?');
     var url1 = temp[0];
     var url2 = temp[1];

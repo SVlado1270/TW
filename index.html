@@ -72,13 +72,69 @@
                 </div>
             </div>
         </div>
+        <div class="comparare_regiuni" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
+            <div class="titlu_comparare" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
+                <h2>Comparare regiuni:</h2>
+            </div>
+            <div class="comp">
+                <div class="select">
+                    <select name="slct" id="selr1" onchange=''>
+                        <option selected disabled>Alegeti regiunea</option>
+                        <option value="1">Nord-Est</option>
+                        <option value="2">Sud-Est</option>
+                        <option value="3">Sud-Muntenia</option>
+                        <option value="4">Sud-Vest-Oltenia</option>
+                        <option value="5">Vest</option>
+                        <option value="6">Nord-Vest</option>
+                        <option value="7">Centru</option>
+                        <option value="8">Bucuresti-Ilfov</option>
+                    </select>
+                </div>
+                <div class="select">
+                    <select name="slct" id="selr2" onchange=''>
+                        <option selected disabled>Alegeti regiunea</option>
+                        <option value="1">Nord-Est</option>
+                        <option value="2">Sud-Est</option>
+                        <option value="3">Sud-Muntenia</option>
+                        <option value="4">Sud-Vest-Oltenia</option>
+                        <option value="5">Vest</option>
+                        <option value="6">Nord-Vest</option>
+                        <option value="7">Centru</option>
+                        <option value="8">Bucuresti-Ilfov</option>
+                    </select>
+                </div>
+            </div>
+            <button class="compare_btn" onclick="CompareRegiuni()">Compara!</button>
+
+            <script>
+                function get_reg1() {
+                    var element = document.getElementById("selr1");
+                    var a = element.options[element.selectedIndex].text
+                    return a;
+                }
+
+                function get_reg2() {
+                    var element = document.getElementById("selr2");
+                    var a = element.options[element.selectedIndex].text
+                    return a;
+                }
+
+                function CompareRegiuni() {
+                    var reg1 = get_reg1();
+                    var reg2 = get_reg2();
+                    var new_url = '/Reg_comp?perioada=totanul&chart=pie&regiune1=' + reg1 + '&regiune2=' + reg2;
+                    console.log(new_url);
+                    location.assign(new_url);
+                }
+            </script>
+        </div>
 
 
         <div class="comparare_judete" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
             <div class="titlu_comparare" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                 <h2>Comparare judete:</h2>
             </div>
-            <div class="jud_comp">
+            <div class="comp">
                 <div class="select">
                     <select name="slct" id="slct" onchange='get_judet1()'>
                         <option selected disabled>Alegeti judetul</option>

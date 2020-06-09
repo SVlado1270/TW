@@ -22,12 +22,21 @@
                 <button onclick="updateChart_type(window.location,'radar')">RadarChart</button>
             </div>
             <div>
-                <a href="./index.html"><img src="MAPABUNA.svg" style="filter: sepia(65%); width:15%; margin-top: -20vh; position: aboslute;"></a>
+                <a href="./index.html"><img src="MAPABUNA.svg" id="homemap"></a>
+            </div>
+
+            <div class="filter_btns">
+                <button onclick="updatePerioada(window.location,'totanul')">Tot anul</button>
+                <button onclick="updatePerioada(window.location,'primajum')">Prima jumatate</button>
+                <button onclick="updatePerioada(window.location,'adouajum')">A doua jumatate</button>
             </div>
         </div>
 
 
         <div class="compare-area1" style="display: inline-block;">
+
+            <h2 style="margin-top: 5vh; text-align: center; width: 100%;" id='nume_reg1'> Test </h2>
+
             <div style=" width:90%; height:70%; margin-left:1vw; ">
                 <div class="container">
                     <canvas id="chart1" width="700"></canvas>
@@ -39,6 +48,7 @@
                     var type = getChart_type(currentLocation.href);
                     var per = getPerioada(currentLocation.href);
 
+                    document.getElementById('nume_reg1').innerHTML = 'Regiunea ' + reg1;
                     var url = 'https://vvv1270.azurewebsites.net/Regiune/' + reg1;
 
                     console.log(url)
@@ -74,7 +84,7 @@
                                             temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
                                         }
                                     }
-                                    total.push(temp_result / 10)
+                                    total.push(temp_result / 5)
                                 }
                             }
                             if (per == "adouajum") {
@@ -86,7 +96,7 @@
                                             temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
                                         }
                                     }
-                                    total.push(temp_result / 10)
+                                    total.push(temp_result / 5)
                                 }
                             }
                             if (per == "totanul") {
@@ -158,6 +168,7 @@
 
 
         <div class="compare-area2" style="display: inline-block;">
+            <h2 style="margin-top: 5vh; text-align: center;" id='nume_reg2'> Test </h2>
             <div style=" width:90%; height:70%; margin-left:1vw; ">
                 <div class="container">
                     <canvas id="chart2" width="700"></canvas>
@@ -167,6 +178,7 @@
 
                     var reg2 = getRegiune2(currentLocation.href);
                     var type = getChart_type(currentLocation.href);
+                    document.getElementById('nume_reg2').innerHTML = 'Regiunea ' + reg2;
 
                     var url = 'https://vvv1270.azurewebsites.net/Regiune/' + reg2;
 
@@ -200,7 +212,7 @@
                                             temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
                                         }
                                     }
-                                    total.push(temp_result / 10)
+                                    total.push(temp_result / 5)
                                 }
                             }
                             if (per == "adouajum") {
@@ -212,7 +224,7 @@
                                             temp_result += rez[i][j].NUMAR_TOTAL_SOMERI
                                         }
                                     }
-                                    total.push(temp_result / 10)
+                                    total.push(temp_result / 5)
                                 }
                             }
                             if (per == "totanul") {
